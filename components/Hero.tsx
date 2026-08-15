@@ -12,7 +12,6 @@ const line1Words = ["Krithish", "Ravindra"];
 const line2Words = ["Suvarna"];
 
 export default function Hero() {
-  const [booted, setBooted] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   const { scrollY } = useScroll();
@@ -40,10 +39,10 @@ export default function Hero() {
   };
 
   return (
-    <header className="min-h-screen flex flex-col justify-center pt-32 pb-20 relative overflow-hidden">
+    <header className="min-h-screen flex flex-col justify-center pt-24 sm:pt-32 pb-12 sm:pb-20 relative overflow-hidden">
       {/* glow orbs with parallax */}
       <motion.div
-        className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full opacity-30 pointer-events-none"
+        className="absolute -top-40 -left-40 w-[300px] sm:w-[520px] h-[300px] sm:h-[520px] rounded-full opacity-30 pointer-events-none"
         style={{
           y: orb1Y,
           background:
@@ -51,7 +50,7 @@ export default function Hero() {
         }}
       />
       <motion.div
-        className="absolute top-20 -right-32 w-[420px] h-[420px] rounded-full opacity-25 pointer-events-none"
+        className="absolute top-20 -right-32 w-[280px] sm:w-[420px] h-[280px] sm:h-[420px] rounded-full opacity-25 pointer-events-none"
         style={{
           y: orb2Y,
           background:
@@ -59,18 +58,18 @@ export default function Hero() {
         }}
       />
 
-      <div className="max-w-[1080px] mx-auto px-8 w-full relative">
-        <BootSequence onDone={() => setBooted(true)} />
+      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 md:px-8 w-full relative">
+        <BootSequence onDone={() => {}} />
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          animate={booted ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="font-mono text-[13px] text-teal tracking-wide flex items-center gap-2.5 mb-6"
+          className="font-mono text-[11px] sm:text-[13px] text-teal tracking-wide flex flex-wrap items-center gap-2 sm:gap-2.5 mb-4 sm:mb-6"
         >
-          <span className="w-[26px] h-px bg-teal" />
+          <span className="w-[18px] sm:w-[26px] h-px bg-teal hidden sm:inline-block" />
           FULL-STACK DEVELOPER &amp; AUTOMATION SPECIALIST
-          <span className="ml-2 inline-flex items-center gap-1.5 font-mono text-[11px] text-amber border border-amber/20 bg-amber/10 rounded-full px-2.5 py-0.5">
+          <span className="inline-flex items-center gap-1.5 font-mono text-[10px] sm:text-[11px] text-amber border border-amber/20 bg-amber/10 rounded-full px-2.5 py-0.5">
             <span className="w-1.5 h-1.5 rounded-full bg-amber animate-blink" />
             open to opportunities
           </span>
@@ -80,11 +79,11 @@ export default function Hero() {
           <motion.h1
             variants={containerVariants}
             initial="hidden"
-            animate={booted ? "visible" : "hidden"}
-            className="font-mono font-extrabold text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.04] tracking-tight text-primary"
+            animate="visible"
+            className="font-mono font-extrabold text-[clamp(2.1rem,6vw,4.6rem)] leading-[1.06] tracking-tight text-primary"
           >
             <span className="inline-block">
-              {line1Words.map((word, i) => (
+              {line1Words.map((word) => (
                 <motion.span
                   key={word}
                   variants={wordVariants}
@@ -94,13 +93,13 @@ export default function Hero() {
                 </motion.span>
               ))}
             </span>
-            <br />
+            <br className="hidden sm:inline" />
             <span className="inline-block text-amber">
               {line2Words.map((word) => (
                 <motion.span
                   key={word}
                   variants={wordVariants}
-                  className="inline-block"
+                  className="inline-block ml-0 sm:ml-0"
                 >
                   {word}
                 </motion.span>
@@ -110,28 +109,28 @@ export default function Hero() {
 
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
-            animate={booted ? { opacity: 1, scale: 1 } : {}}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.12, ease: "easeOut" }}
-            className="flex-shrink-0"
+            className="flex-shrink-0 self-start sm:self-auto"
           >
-            <Avatar size={240} className="shadow-[0_0_45px_rgba(242,169,59,0.35)] border-amber/70 border-2" />
+            <Avatar className="w-32 h-32 sm:w-48 sm:h-48 md:w-56 md:h-56 shadow-[0_0_45px_rgba(242,169,59,0.35)] border-amber/70 border-2" />
           </motion.div>
         </div>
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          animate={booted ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.18, ease: "easeOut" }}
-          className="mt-[18px] max-w-[640px]"
+          className="mt-4 sm:mt-[18px] max-w-[640px]"
         >
           <RotatingWord />
         </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}
-          animate={booted ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.28, ease: "easeOut" }}
-          className="mt-6 max-w-[600px] text-muted text-[15.5px]"
+          className="mt-4 sm:mt-6 max-w-[600px] text-muted text-[14.5px] sm:text-[15.5px] leading-relaxed"
         >
           MCA candidate specialising in scalable automation and DevOps —
           architecting bespoke CRM systems and API-driven workflows on the
@@ -141,17 +140,17 @@ export default function Hero() {
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          animate={booted ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.38, ease: "easeOut" }}
-          className="mt-9 flex gap-4 flex-wrap"
+          className="mt-7 sm:mt-9 flex gap-3.5 sm:gap-4 flex-wrap"
         >
           <Magnetic as="a" href="#projects" strength={14}>
-            <span className="font-mono text-[13px] font-semibold px-[22px] py-[13px] rounded-md inline-flex items-center gap-2 border border-amber bg-amber text-void transition-shadow hover:shadow-[0_8px_24px_rgba(242,169,59,0.3)]">
+            <span className="font-mono text-[12.5px] sm:text-[13px] font-semibold px-5 sm:px-[22px] py-3 sm:py-[13px] rounded-md inline-flex items-center gap-2 border border-amber bg-amber text-void transition-shadow hover:shadow-[0_8px_24px_rgba(242,169,59,0.3)]">
               View Projects →
             </span>
           </Magnetic>
           <Magnetic as="a" href="#contact" strength={14}>
-            <span className="font-mono text-[13px] font-semibold px-[22px] py-[13px] rounded-md inline-flex items-center gap-2 border border-line text-primary transition-colors hover:border-teal hover:text-teal">
+            <span className="font-mono text-[12.5px] sm:text-[13px] font-semibold px-5 sm:px-[22px] py-3 sm:py-[13px] rounded-md inline-flex items-center gap-2 border border-line text-primary transition-colors hover:border-teal hover:text-teal">
               Get in Touch
             </span>
           </Magnetic>
@@ -159,7 +158,7 @@ export default function Hero() {
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          animate={booted ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.48, ease: "easeOut" }}
         >
           <Pipeline />

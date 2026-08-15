@@ -35,40 +35,42 @@ export default function Experience() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="experience" className="py-16">
-      <div className="max-w-[1080px] mx-auto px-8">
+    <section id="experience" className="py-12 sm:py-16">
+      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 md:px-8">
         <SectionHead index="02" title="Experience" />
 
-        <div className="relative pl-[34px]">
+        <div className="relative pl-6 sm:pl-[34px]">
           <motion.div
             initial={{ scaleY: shouldReduceMotion ? 1 : 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 1.2, ease: "easeInOut" }}
             style={{ transformOrigin: "top" }}
-            className="absolute left-[6px] top-1.5 bottom-1.5 w-[1.5px] bg-gradient-to-b from-teal via-amber/60 to-line"
+            className="absolute left-[5px] sm:left-[6px] top-1.5 bottom-1.5 w-[1.5px] bg-gradient-to-b from-teal via-amber/60 to-line"
           />
 
           {commits.map((c, i) => (
-            <Reveal key={c.hash} delay={i * 0.08} className="relative mb-[52px] last:mb-0">
-              <span className="absolute -left-[34px] top-1.5 w-3 h-3 rounded-full bg-void border-2 border-teal shadow-[0_0_0_4px_#0B0E14]" />
-              <div className="flex flex-wrap items-baseline gap-2.5 mb-1.5">
-                <span className="font-mono text-xs text-amber bg-amber/10 px-2 py-0.5 rounded">
-                  {c.hash}
-                </span>
-                <span className="font-bold text-[19px] text-primary">
-                  {c.role}
-                </span>
-                <span className="font-mono text-[12.5px] text-dim ml-auto">
+            <Reveal key={c.hash} delay={i * 0.08} className="relative mb-10 sm:mb-[52px] last:mb-0">
+              <span className="absolute -left-[24px] sm:-left-[34px] top-1.5 w-3 h-3 rounded-full bg-void border-2 border-teal shadow-[0_0_0_4px_#0B0E14]" />
+              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-2.5 mb-1.5">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-mono text-xs text-amber bg-amber/10 px-2 py-0.5 rounded">
+                    {c.hash}
+                  </span>
+                  <span className="font-bold text-[17px] sm:text-[19px] text-primary">
+                    {c.role}
+                  </span>
+                </div>
+                <span className="font-mono text-[11.5px] sm:text-[12.5px] text-dim">
                   {c.date}
                 </span>
               </div>
-              <div className="font-mono text-[13.5px] text-teal">{c.org}</div>
+              <div className="font-mono text-[13px] sm:text-[13.5px] text-teal">{c.org}</div>
               <ul className="mt-3.5 space-y-2.5">
                 {c.bullets.map((b) => (
                   <li
                     key={b}
-                    className="relative pl-5 text-muted text-[15px]"
+                    className="relative pl-5 text-muted text-[14px] sm:text-[15px] leading-relaxed"
                   >
                     <span className="absolute left-0 text-teal font-mono font-bold">
                       +

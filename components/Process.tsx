@@ -33,27 +33,27 @@ const STEPS = [
 
 export default function Process() {
   return (
-    <section id="process" className="py-16">
-      <div className="max-w-[1080px] mx-auto px-8">
+    <section id="process" className="py-12 sm:py-16">
+      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 md:px-8">
         <SectionHead index="03" title="Process" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
           {STEPS.map((s, i) => {
             const Icon = s.icon;
             return (
               <Reveal key={s.title} delay={i * 0.08}>
-                <div className="group border border-line rounded-xl bg-panel p-7 h-full transition-colors hover:border-teal/60">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-10 h-10 rounded-lg bg-panel2 border border-line flex items-center justify-center transition-colors group-hover:border-amber">
+                <div className="group border border-line rounded-xl bg-panel p-5 sm:p-7 h-full transition-colors hover:border-teal/60">
+                  <div className="flex items-center justify-between mb-5 sm:mb-6">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-panel2 border border-line flex items-center justify-center transition-colors group-hover:border-amber">
                       <Icon size={18} className="text-teal" strokeWidth={1.75} />
                     </div>
-                    <span className="font-mono text-[11px] text-dim tracking-wide">
+                    <span className="font-mono text-[10.5px] sm:text-[11px] text-dim tracking-wide">
                       {s.tag}
                     </span>
                   </div>
-                  <div className="font-mono font-bold text-[17px] text-primary mb-2">
+                  <div className="font-mono font-bold text-[16px] sm:text-[17px] text-primary mb-2">
                     {s.title}
                   </div>
-                  <p className="text-muted text-[14.5px] leading-relaxed">
+                  <p className="text-muted text-[14px] sm:text-[14.5px] leading-relaxed">
                     {s.desc}
                   </p>
                 </div>

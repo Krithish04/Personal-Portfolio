@@ -55,20 +55,20 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-16">
-      <div className="max-w-[1080px] mx-auto px-8">
+    <section id="skills" className="py-12 sm:py-16">
+      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 md:px-8">
         <SectionHead index="05" title="Skills" />
         <div
-          className="grid gap-6"
-          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}
+          className="grid gap-5 sm:gap-6"
+          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}
         >
           {groups.map((g, i) => {
             const Icon = g.icon;
             return (
               <Reveal key={g.title} delay={i * 0.08}>
-                <div className="group border border-line rounded-[10px] p-6 bg-panel h-full transition-colors hover:border-teal/50 flex flex-col justify-between">
+                <div className="group border border-line rounded-[10px] p-5 sm:p-6 bg-panel h-full transition-colors hover:border-teal/50 flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center gap-2.5 mb-5">
+                    <div className="flex items-center gap-2.5 mb-4 sm:mb-5">
                       <div className="w-8 h-8 rounded-md bg-panel2 border border-line flex items-center justify-center transition-colors group-hover:border-amber">
                         <Icon size={15} className="text-teal" strokeWidth={1.75} />
                       </div>
@@ -81,12 +81,12 @@ export default function Skills() {
                       initial="hidden"
                       whileInView="visible"
                       viewport={{ once: true, margin: "-10%" }}
-                      className="flex flex-wrap gap-2.5"
+                      className="flex flex-wrap gap-2 sm:gap-2.5"
                     >
                       {g.items.map((item) => (
                         <motion.div key={item} variants={chipVariants}>
                           <Magnetic strength={6}>
-                            <span className="font-mono text-[12.5px] px-3 py-[7px] rounded-md bg-panel2 border border-line text-primary transition-all hover:border-teal hover:text-teal inline-block cursor-default">
+                            <span className="font-mono text-[12px] sm:text-[12.5px] px-2.5 sm:px-3 py-[6px] sm:py-[7px] rounded-md bg-panel2 border border-line text-primary transition-all hover:border-teal hover:text-teal inline-block cursor-default">
                               {item}
                             </span>
                           </Magnetic>

@@ -18,23 +18,23 @@ const edu = [
 
 export default function Education() {
   return (
-    <section id="education" className="py-16">
-      <div className="max-w-[1080px] mx-auto px-8">
+    <section id="education" className="py-12 sm:py-16">
+      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 md:px-8">
         <SectionHead index="06" title="Education" />
         <Reveal>
           <div>
             {edu.map((e, i) => (
               <div
                 key={e.school}
-                className={`flex justify-between items-start gap-5 py-6 flex-wrap ${
+                className={`flex justify-between items-start gap-3 sm:gap-5 py-5 sm:py-6 flex-wrap ${
                   i !== edu.length - 1 ? "border-b border-linesoft" : ""
                 }`}
               >
-                <div>
-                  <div className="font-bold text-[17px]">{e.school}</div>
-                  <div className="text-muted text-[14.5px] mt-1">{e.degree}</div>
+                <div className="max-w-[580px]">
+                  <div className="font-bold text-[16px] sm:text-[17px]">{e.school}</div>
+                  <div className="text-muted text-[13.5px] sm:text-[14.5px] mt-1 leading-relaxed">{e.degree}</div>
                 </div>
-                <div className="font-mono text-[12.5px] text-dim text-right">
+                <div className="font-mono text-[11.5px] sm:text-[12.5px] text-dim text-left sm:text-right">
                   {e.location}
                   <br />
                   {e.date}

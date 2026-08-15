@@ -6,11 +6,11 @@ import MiniFlow from "./MiniFlow";
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-16">
-      <div className="max-w-[1080px] mx-auto px-8">
+    <section id="projects" className="py-12 sm:py-16">
+      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 md:px-8">
         <SectionHead index="04" title="Projects" />
 
-        <div className="grid grid-cols-1 gap-8">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8">
           {/* TeleCRM */}
           <Reveal>
             <TiltCard className="border border-line rounded-xl bg-panel overflow-hidden transition-colors hover:border-teal/60 [transform-style:preserve-3d]">
@@ -18,21 +18,21 @@ export default function Projects() {
                 <span className="w-2.5 h-2.5 rounded-full bg-[#FF6B6B]" />
                 <span className="w-2.5 h-2.5 rounded-full bg-amber" />
                 <span className="w-2.5 h-2.5 rounded-full bg-teal" />
-                <span className="font-mono text-[11px] text-dim ml-3 bg-void/40 px-2.5 py-0.5 rounded">
+                <span className="font-mono text-[10.5px] sm:text-[11px] text-dim ml-3 bg-void/40 px-2.5 py-0.5 rounded truncate max-w-[200px] sm:max-w-none">
                   telecrm.internal/dashboard
                 </span>
               </div>
 
-              <div className="p-8">
-                <div className="flex justify-between items-start gap-5 flex-wrap">
-                  <div className="font-mono font-bold text-xl text-primary">
+              <div className="p-5 sm:p-8">
+                <div className="flex justify-between items-start gap-4 flex-wrap">
+                  <div className="font-mono font-bold text-lg sm:text-xl text-primary">
                     TeleCRM — Lead Management System
                   </div>
                   <div className="font-mono text-[11px] text-amber border border-amber/10 bg-amber/10 px-2.5 py-1 rounded-full whitespace-nowrap">
                     production
                   </div>
                 </div>
-                <p className="text-muted mt-3.5 text-[15px] max-w-[640px]">
+                <p className="text-muted mt-3 sm:mt-3.5 text-[14px] sm:text-[15px] max-w-[640px] leading-relaxed">
                   A centralized CRM integrating mobile communication logs with
                   a MERN backend for real-time sales-interaction sync — plus
                   an automated engine that converts cold social engagement
@@ -40,12 +40,12 @@ export default function Projects() {
                   webhooks.
                 </p>
 
-                <div className="flex flex-wrap gap-2 mt-5">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-4 sm:mt-5">
                   {["MongoDB", "Express.js", "Node.js", "WhatsApp Business API", "Webhooks"].map(
                     (t) => (
                       <span
                         key={t}
-                        className="font-mono text-[11.5px] text-muted border border-line px-2.5 py-[5px] rounded-md"
+                        className="font-mono text-[11px] sm:text-[11.5px] text-muted border border-line px-2.5 py-[5px] rounded-md"
                       >
                         {t}
                       </span>
@@ -53,14 +53,14 @@ export default function Projects() {
                   )}
                 </div>
 
-                <div className="mt-7 pt-6 border-t border-linesoft">
+                <div className="mt-6 sm:mt-7 pt-5 sm:pt-6 border-t border-linesoft">
                   <div className="font-mono text-[10.5px] text-dim tracking-wide mb-3">
                     DATA FLOW
                   </div>
                   <MiniFlow nodes={["mobile logs", "MERN backend", "MongoDB", "WhatsApp API"]} />
                 </div>
 
-                <div className="flex gap-9 mt-7 pt-6 border-t border-linesoft flex-wrap">
+                <div className="flex gap-6 sm:gap-9 mt-6 sm:mt-7 pt-5 sm:pt-6 border-t border-linesoft flex-wrap">
                   <AnimatedStat target={40} suffix="%" label="less manual data entry" />
                   <AnimatedStat
                     target={99.9}
@@ -80,44 +80,44 @@ export default function Projects() {
                 <span className="w-2.5 h-2.5 rounded-full bg-[#FF6B6B]" />
                 <span className="w-2.5 h-2.5 rounded-full bg-amber" />
                 <span className="w-2.5 h-2.5 rounded-full bg-teal" />
-                <span className="font-mono text-[11px] text-dim ml-3 bg-void/40 px-2.5 py-0.5 rounded">
+                <span className="font-mono text-[10.5px] sm:text-[11px] text-dim ml-3 bg-void/40 px-2.5 py-0.5 rounded truncate max-w-[200px] sm:max-w-none">
                   quotationmaster.internal
                 </span>
               </div>
 
-              <div className="p-8">
-                <div className="flex justify-between items-start gap-5 flex-wrap">
-                  <div className="font-mono font-bold text-xl text-primary">
+              <div className="p-5 sm:p-8">
+                <div className="flex justify-between items-start gap-4 flex-wrap">
+                  <div className="font-mono font-bold text-lg sm:text-xl text-primary">
                     Quotation Master
                   </div>
                   <div className="font-mono text-[11px] text-amber border border-amber/10 bg-amber/10 px-2.5 py-1 rounded-full whitespace-nowrap">
                     internship
                   </div>
                 </div>
-                <p className="text-muted mt-3.5 text-[15px] max-w-[640px]">
+                <p className="text-muted mt-3 sm:mt-3.5 text-[14px] sm:text-[15px] max-w-[640px] leading-relaxed">
                   An internal quoting platform built at Devisoft — reusable UI
                   components, full CRUD for quotations, and JWT-secured REST
                   APIs, deployed and validated on the company&apos;s local
                   testing server as part of an Agile team.
                 </p>
 
-                <div className="flex flex-wrap gap-2 mt-5">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-4 sm:mt-5">
                   {["Next.js", "Node.js", "Express.js", "MongoDB", "Mongoose", "JWT Auth"].map(
                     (t) => (
                       <span
                         key={t}
-                        className="font-mono text-[11.5px] text-muted border border-line px-2.5 py-[5px] rounded-md"
+                        className="font-mono text-[11px] sm:text-[11.5px] text-muted border border-line px-2.5 py-[5px] rounded-md"
                       >
                         {t}
                       </span>
                     )
                   )}
-                  <span className="font-mono text-[11.5px] text-dim border border-dashed border-line px-2.5 py-[5px] rounded-md">
+                  <span className="font-mono text-[11px] sm:text-[11.5px] text-dim border border-dashed border-line px-2.5 py-[5px] rounded-md">
                     Postman-tested
                   </span>
                 </div>
 
-                <div className="mt-7 pt-6 border-t border-linesoft">
+                <div className="mt-6 sm:mt-7 pt-5 sm:pt-6 border-t border-linesoft">
                   <div className="font-mono text-[10.5px] text-dim tracking-wide mb-3">
                     DATA FLOW
                   </div>

@@ -90,22 +90,23 @@ export default function Pipeline() {
   }, []);
 
   return (
-    <div className="mt-14 border border-line rounded-[12px] bg-panel/90 p-6 overflow-hidden shadow-xl">
-      <div className="flex items-center justify-between pb-3 mb-2 font-mono text-[12px]">
-        <div className="flex items-center gap-2.5">
+    <div className="mt-10 sm:mt-14 border border-line rounded-[12px] bg-panel/90 p-4 sm:p-6 overflow-hidden shadow-xl">
+      <div className="flex items-center justify-between pb-3 mb-2 font-mono text-[11px] sm:text-[12px]">
+        <div className="flex items-center gap-2 sm:gap-2.5">
           <span className="w-2 h-2 rounded-full bg-teal shadow-[0_0_8px_#4FD1C5] animate-blink" />
           <span className="text-primary font-bold">automated-lead-pipeline.ts</span>
         </div>
-        <div className="font-mono text-[11px] px-2 py-0.5 rounded border border-teal/30 bg-teal/10 text-teal">
+        <div className="font-mono text-[10px] sm:text-[11px] px-2 py-0.5 rounded border border-teal/30 bg-teal/10 text-teal">
           status: 200 OK
         </div>
       </div>
 
-      <svg
-        viewBox="0 0 1000 150"
-        preserveAspectRatio="xMidYMid meet"
-        className="w-full h-auto block"
-      >
+      <div className="overflow-x-auto pb-2 scrollbar-thin">
+        <svg
+          viewBox="0 0 1000 150"
+          preserveAspectRatio="xMidYMid meet"
+          className="w-full min-w-[640px] h-auto block"
+        >
         <line
           x1={80}
           y1={70}
@@ -192,6 +193,7 @@ export default function Pipeline() {
           style={{ filter: "drop-shadow(0 0 10px #4FD1C5)" }}
         />
       </svg>
+      </div>
 
       <style jsx global>{`
         .stage-node.stage-active {

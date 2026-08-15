@@ -22,21 +22,23 @@ export default function NetworkBackground() {
     let nodes: Node[] = [];
     let raf = 0;
 
-    const DENSITY = 14000; // px^2 per node
-    const LINK_DIST = 150;
+    const DENSITY = 18000; // px^2 per node
+    const LINK_DIST = 130;
 
     function resize() {
       if (!canvas) return;
       width = window.innerWidth;
-      height = document.documentElement.scrollHeight;
-      canvas.width = width * devicePixelRatio;
-      canvas.height = height * devicePixelRatio;
+      height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
       canvas.style.width = width + "px";
       canvas.style.height = height + "px";
-      ctx?.scale(devicePixelRatio, devicePixelRatio);
+      ctx?.scale(dpr, dpr);
 
-      const count = Math.min(90, Math.floor((width * height) / DENSITY));
-      nodes = Array.from({ length: count }, () => ({
+      const maxNodes = width < 768 ? 30 : 65;
+      const count = Math.min(maxNodes, Math.floor((width * height) / DENSITY));
+      nodes = Array.from({ length: Math.max(15, count) }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.15,
@@ -93,13 +95,10 @@ export default function NetworkBackground() {
 
     const onResize = () => resize();
     window.addEventListener("resize", onResize);
-    const ro = new ResizeObserver(onResize);
-    ro.observe(document.body);
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
-      ro.disconnect();
     };
   }, []);
 
