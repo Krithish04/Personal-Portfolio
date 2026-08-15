@@ -7,6 +7,8 @@ A dark, terminal/DevOps-inspired developer portfolio built with **Next.js 14 (Ap
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
 
+🌐 **Live Demo**: [Krithish Suvarna — Full-Stack Developer & Automation Specialist](https://krithish-portfolio.vercel.app/)
+
 ---
 
 ## ⚡ Highlights & Features
