@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { MouseEvent, ReactNode } from "react";
+import { MouseEvent, ReactNode, useEffect, useState } from "react";
 
 export default function TiltCard({
   children,
@@ -10,6 +10,12 @@ export default function TiltCard({
   children: ReactNode;
   className?: string;
 }) {
+  const [canHover, setCanHover] = useState(false);
+
+  useEffect(() => {
+    setCanHover(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+  }, []);
+
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
 
@@ -25,12 +31,14 @@ export default function TiltCard({
   );
 
   function handleMove(e: MouseEvent<HTMLDivElement>) {
+    if (!canHover) return;
     const rect = e.currentTarget.getBoundingClientRect();
     x.set((e.clientX - rect.left) / rect.width);
     y.set((e.clientY - rect.top) / rect.height);
   }
 
   function handleLeave() {
+    if (!canHover) return;
     x.set(0.5);
     y.set(0.5);
   }
@@ -39,7 +47,7 @@ export default function TiltCard({
     <motion.div
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
-      style={{ rotateX, rotateY, transformPerspective: 1000 }}
+      style={canHover ? { rotateX, rotateY, transformPerspective: 1000 } : undefined}
       className={className}
     >
       {children}

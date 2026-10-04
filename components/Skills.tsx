@@ -10,24 +10,48 @@ const groups = [
   {
     title: "Development",
     icon: Code2,
-    items: ["MongoDB", "Express.js", "React.js", "Python", "Kotlin", "SQL"],
+    items: [
+      "MongoDB",
+      "Express.js",
+      "React.js",
+      "Node.js",
+      "Next.js",
+      "FastAPI",
+      "Flask",
+      "Python",
+      "Kotlin",
+      "SQL",
+      "JavaScript (ES6+)",
+      "HTML5/CSS3",
+    ],
   },
   {
     title: "DevOps & Tools",
     icon: Boxes,
     items: [
+      "Kubernetes",
+      "Kustomize",
+      "Docker",
+      "Docker Compose",
       "Git",
       "GitHub Actions",
-      "Docker",
       "Linux/Bash",
       "REST APIs",
       "CI/CD Pipelines",
+      "Nginx",
     ],
   },
   {
     title: "Analytics & Business",
     icon: BarChart3,
-    items: ["Power BI", "Android Studio", "WhatsApp Business API"],
+    items: [
+      "Scikit-learn",
+      "Socket.io",
+      "Power BI",
+      "Android Studio",
+      "WhatsApp Business API",
+      "Postman",
+    ],
   },
 ];
 
@@ -39,7 +63,7 @@ export default function Skills() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.04,
+        staggerChildren: shouldReduceMotion ? 0 : 0.03,
       },
     },
   };
@@ -55,20 +79,17 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-12 sm:py-16">
+    <section id="skills" className="py-10 sm:py-16">
       <div className="max-w-[1080px] mx-auto px-4 sm:px-6 md:px-8">
         <SectionHead index="05" title="Skills" />
-        <div
-          className="grid gap-5 sm:gap-6"
-          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {groups.map((g, i) => {
             const Icon = g.icon;
             return (
               <Reveal key={g.title} delay={i * 0.08}>
-                <div className="group border border-line rounded-[10px] p-5 sm:p-6 bg-panel h-full transition-colors hover:border-teal/50 flex flex-col justify-between">
+                <div className="group border border-line rounded-xl p-4.5 xs:p-5 sm:p-6 bg-panel h-full transition-colors hover:border-teal/50 flex flex-col justify-between shadow-sm">
                   <div>
-                    <div className="flex items-center gap-2.5 mb-4 sm:mb-5">
+                    <div className="flex items-center gap-2.5 mb-3.5 sm:mb-5">
                       <div className="w-8 h-8 rounded-md bg-panel2 border border-line flex items-center justify-center transition-colors group-hover:border-amber">
                         <Icon size={15} className="text-teal" strokeWidth={1.75} />
                       </div>
@@ -86,7 +107,7 @@ export default function Skills() {
                       {g.items.map((item) => (
                         <motion.div key={item} variants={chipVariants}>
                           <Magnetic strength={6}>
-                            <span className="font-mono text-[12px] sm:text-[12.5px] px-2.5 sm:px-3 py-[6px] sm:py-[7px] rounded-md bg-panel2 border border-line text-primary transition-all hover:border-teal hover:text-teal inline-block cursor-default">
+                            <span className="font-mono text-[11.5px] sm:text-[12.5px] px-2.5 sm:px-3 py-1.5 sm:py-[7px] rounded-md bg-panel2 border border-line text-primary transition-all hover:border-teal hover:text-teal inline-block cursor-default">
                               {item}
                             </span>
                           </Magnetic>

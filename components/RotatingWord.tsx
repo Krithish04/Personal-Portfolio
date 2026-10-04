@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 
 const WORDS = [
-  "CRM systems",
-  "automation engines",
-  "REST APIs",
-  "CI/CD pipelines",
-  "MERN apps",
+  "DineSync ERP & AI microservices",
+  "TaskFlow Kubernetes clusters",
+  "TeleCRM automation engines",
+  "React & FastAPI applications",
+  "Docker & GitHub CI/CD pipelines",
 ];
 
 export default function RotatingWord() {
@@ -26,10 +26,10 @@ export default function RotatingWord() {
   }, []);
 
   return (
-    <span className="font-mono text-[clamp(1rem,2.4vw,1.25rem)] text-muted inline-flex items-center flex-wrap gap-[2px]">
+    <span className="font-mono text-[clamp(0.95rem,2.4vw,1.25rem)] text-muted inline-flex items-center flex-wrap gap-[2px]">
       Building{" "}
       <span
-        className="transition-opacity duration-300"
+        className="transition-opacity duration-300 font-semibold text-teal"
         style={{ opacity: visible ? 1 : 0 }}
       >
         {WORDS[index]}

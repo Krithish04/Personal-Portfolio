@@ -26,8 +26,8 @@ export default function MiniFlow({ nodes }: { nodes: string[] }) {
 
   return (
     <div className="relative pt-2 pb-1 my-2">
-      {/* Background connecting track line with animated dashed flow */}
-      <div className="absolute top-[13px] left-4 right-4 h-[2px] bg-line overflow-hidden rounded">
+      {/* Desktop Track line */}
+      <div className="hidden sm:block absolute top-[13px] left-4 right-4 h-[2px] bg-line overflow-hidden rounded">
         <div
           className={`w-full h-full bg-[linear-gradient(90deg,#4FD1C5_50%,transparent_50%)] bg-[length:14px_100%] opacity-70 ${
             shouldReduceMotion ? "" : "animate-dashflow"
@@ -35,15 +35,15 @@ export default function MiniFlow({ nodes }: { nodes: string[] }) {
         />
       </div>
 
-      {/* Nodes and Labels */}
+      {/* Nodes and Labels - Desktop (horizontal) / Mobile (2x2 grid or flex wrap) */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-10%" }}
-        className="relative flex justify-between items-start"
+        className="hidden sm:flex justify-between items-start relative"
       >
-        {nodes.map((label, i) => (
+        {nodes.map((label) => (
           <motion.div
             key={label}
             variants={nodeVariants}
@@ -55,6 +55,35 @@ export default function MiniFlow({ nodes }: { nodes: string[] }) {
             <span className="mt-2 font-mono text-[11.5px] text-muted font-medium leading-tight">
               {label}
             </span>
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* Mobile Flow (Grid / Tag Pills with arrows) */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-10%" }}
+        className="sm:hidden flex flex-wrap items-center gap-2"
+      >
+        {nodes.map((label, idx) => (
+          <motion.div
+            key={label}
+            variants={nodeVariants}
+            className="flex items-center gap-2"
+          >
+            <div className="flex items-center gap-1.5 bg-panel2 border border-line px-2.5 py-1 rounded-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber flex-shrink-0" />
+              <span className="font-mono text-[11px] text-muted font-medium">
+                {label}
+              </span>
+            </div>
+            {idx < nodes.length - 1 && (
+              <span className="font-mono text-[11px] text-teal/70 font-bold">
+                →
+              </span>
+            )}
           </motion.div>
         ))}
       </motion.div>

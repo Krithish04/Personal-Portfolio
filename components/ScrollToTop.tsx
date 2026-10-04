@@ -44,7 +44,7 @@ export default function ScrollToTop() {
           transition={{ duration: 0.3 }}
           onClick={scrollToTop}
           aria-label="Scroll to top"
-          className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-panel/90 backdrop-blur-md border border-line text-teal flex items-center justify-center shadow-lg transition-colors hover:border-amber hover:text-amber group"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-panel/90 backdrop-blur-md border border-line text-teal flex items-center justify-center shadow-xl transition-colors hover:border-amber hover:text-amber active:scale-95 group"
         >
           <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 44 44">
             <circle
