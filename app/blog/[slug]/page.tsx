@@ -57,10 +57,10 @@ export default async function BlogPostPage({ params }: Props) {
               <span>
                 {post.publishedAt
                   ? new Date(post.publishedAt).toLocaleDateString("en-US", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })
                   : ""}
               </span>
               <span className="text-border" aria-hidden="true">·</span>

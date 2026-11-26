@@ -103,9 +103,10 @@ export default function Projects({
         {!showAll && (
           <Link
             href="/projects"
-            className="text-xs font-mono text-text-muted hover:text-accent transition-colors shrink-0 ml-2"
+            className="text-xs font-mono text-text-muted hover:text-accent transition-colors shrink-0 ml-2 group inline-flex items-center gap-1"
           >
-            View all ({projects.length}) →
+            <span>View all ({projects.length})</span>
+            <span className="inline-block transition-transform duration-150 group-hover:translate-x-1">→</span>
           </Link>
         )}
       </div>
@@ -115,7 +116,7 @@ export default function Projects({
         {(showAll ? projects : featured).map((project) => (
           <article
             key={project.id}
-            className="p-4 sm:p-6 rounded-lg bg-surface border border-border hover:border-accent/60 transition-colors"
+            className="p-4 sm:p-6 rounded-lg bg-surface border border-border hover:border-accent/70 hover:-translate-y-0.5 transition-all duration-200 group"
           >
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5 sm:gap-4 mb-2">
               <div className="min-w-0">
@@ -123,10 +124,10 @@ export default function Projects({
                   {showCaseStudies ? (
                     <Link
                       href={`/projects/${project.slug}`}
-                      className="hover:text-accent transition-colors inline-flex items-center gap-1.5"
+                      className="hover:text-accent transition-colors inline-flex items-center gap-1.5 group/title"
                     >
                       <span>{project.title}</span>
-                      <ArrowUpRight size={15} className="text-text-muted shrink-0" />
+                      <ArrowUpRight size={15} className="text-text-muted group-hover/title:text-accent group-hover/title:translate-x-0.5 group-hover/title:-translate-y-0.5 transition-all duration-150 shrink-0" />
                     </Link>
                   ) : (
                     project.title
@@ -143,7 +144,7 @@ export default function Projects({
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-2.5 py-1 rounded border border-border bg-bg/50 hover:border-accent hover:text-text transition-colors inline-flex items-center gap-1"
+                    className="px-2.5 py-1 rounded border border-border bg-bg/50 hover:border-accent hover:text-text active:scale-95 transition-all duration-150 inline-flex items-center gap-1"
                     aria-label={`GitHub repository for ${project.title}`}
                   >
                     <Github size={12} />
@@ -155,7 +156,7 @@ export default function Projects({
                     href={project.demoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-2.5 py-1 rounded bg-accent text-white hover:opacity-90 transition-opacity inline-flex items-center gap-1 font-medium"
+                    className="px-2.5 py-1 rounded bg-accent text-white hover:opacity-90 active:scale-95 transition-all duration-150 inline-flex items-center gap-1 font-medium"
                     aria-label={`Live demo for ${project.title}`}
                   >
                     <span>Live</span>
@@ -200,9 +201,10 @@ export default function Projects({
                     {showCaseStudies ? (
                       <Link
                         href={`/projects/${p.slug}`}
-                        className="hover:text-accent transition-colors"
+                        className="hover:text-accent transition-colors group/more inline-flex items-center gap-1"
                       >
-                        {p.title}
+                        <span>{p.title}</span>
+                        <ArrowUpRight size={13} className="text-text-muted group-hover/more:text-accent group-hover/more:translate-x-0.5 group-hover/more:-translate-y-0.5 transition-all duration-150 shrink-0" />
                       </Link>
                     ) : (
                       p.title

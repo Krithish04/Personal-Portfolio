@@ -56,7 +56,7 @@ export default async function Home() {
         showContact={flags.contactForm}
       />
 
-      <main id="main-content" className="flex-1 max-w-container w-full mx-auto px-4 sm:px-6 md:px-8">
+      <main id="main-content" className="flex-1 max-w-container w-full mx-auto px-4 sm:px-6 md:px-8 animate-fade-in">
         {/* 1. Intro */}
         <Hero
           name={profile.name}
@@ -93,16 +93,17 @@ export default async function Home() {
               </h2>
               <Link
                 href="/blog"
-                className="text-xs font-mono text-text-muted hover:text-accent transition-colors shrink-0 ml-2"
+                className="text-xs font-mono text-text-muted hover:text-accent transition-colors shrink-0 ml-2 group inline-flex items-center gap-1"
               >
-                All posts ({latestPosts.length}) →
+                <span>All posts ({latestPosts.length})</span>
+                <span className="inline-block transition-transform duration-150 group-hover:translate-x-1">→</span>
               </Link>
             </div>
             <div className="space-y-4">
               {latestPosts.map((post) => (
                 <article
                   key={post.id}
-                  className="p-4 sm:p-5 rounded-lg bg-surface border border-border hover:border-accent/60 transition-colors"
+                  className="p-4 sm:p-5 rounded-lg bg-surface border border-border hover:border-accent/70 hover:-translate-y-0.5 transition-all duration-200 group"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1.5">
                     <h3 className="font-serif text-base xs:text-lg font-semibold text-text">

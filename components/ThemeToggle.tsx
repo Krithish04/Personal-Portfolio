@@ -40,9 +40,11 @@ export default function ThemeToggle() {
     <button
       onClick={toggleTheme}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-      className="w-8 h-8 rounded-md border border-border flex items-center justify-center text-text-muted hover:text-text hover:border-accent transition-colors"
+      className="w-8 h-8 rounded-md border border-border flex items-center justify-center text-text-muted hover:text-text hover:border-accent active:scale-95 transition-all duration-200"
     >
-      {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+      <span className="inline-flex transition-transform duration-300 transform hover:rotate-12">
+        {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+      </span>
     </button>
   );
 }

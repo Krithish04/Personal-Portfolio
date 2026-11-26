@@ -67,11 +67,10 @@ export default function Nav({
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`text-sm transition-colors py-1 ${
-                    isActive
+                  className={`text-sm transition-colors py-1 ${isActive
                       ? "text-accent font-medium"
                       : "text-text-muted hover:text-text"
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </Link>
@@ -119,11 +118,10 @@ export default function Nav({
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`flex items-center px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
-                    isActive
+                  className={`flex items-center px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${isActive
                       ? "bg-accent/10 text-accent font-semibold"
                       : "text-text-muted hover:text-text hover:bg-bg/60 active:bg-bg"
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </Link>

@@ -9,7 +9,7 @@ export default function MiniFlow({ nodes }: { nodes: string[] }) {
       <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
         {nodes.map((label, idx) => (
           <div key={label} className="inline-flex items-center gap-1.5 sm:gap-2">
-            <span className="font-mono text-[11px] sm:text-xs text-text px-2 sm:px-2.5 py-0.5 sm:py-1 rounded border border-border bg-bg font-medium break-words">
+            <span className="font-mono text-[11px] sm:text-xs text-text px-2 sm:px-2.5 py-0.5 sm:py-1 rounded border border-border bg-bg font-medium break-words hover:border-accent hover:text-accent transition-colors duration-150 cursor-default">
               {label}
             </span>
             {idx < nodes.length - 1 && (

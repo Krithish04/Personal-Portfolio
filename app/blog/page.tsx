@@ -52,7 +52,7 @@ export default async function BlogIndexPage() {
             {posts.map((post) => (
               <article
                 key={String(post._id)}
-                className="p-5 sm:p-6 rounded-lg bg-surface border border-border hover:border-accent/60 transition-colors"
+                className="p-5 sm:p-6 rounded-lg bg-surface border border-border hover:border-accent/70 hover:-translate-y-0.5 transition-all duration-200 group"
               >
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
                   <h2 className="font-serif text-xl font-semibold text-text">
@@ -66,10 +66,10 @@ export default async function BlogIndexPage() {
                   <span className="font-mono text-xs text-text-muted shrink-0">
                     {post.publishedAt
                       ? new Date(post.publishedAt).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })
                       : ""}
                   </span>
                 </div>
