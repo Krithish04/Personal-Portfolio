@@ -1,103 +1,23 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
-
 export default function MiniFlow({ nodes }: { nodes: string[] }) {
-  const shouldReduceMotion = useReducedMotion();
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.08,
-      },
-    },
-  };
-
-  const nodeVariants = {
-    hidden: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.35, ease: "easeOut" as const },
-    },
-  };
+  if (!nodes || nodes.length === 0) return null;
 
   return (
-    <div className="relative pt-2 pb-1 my-2">
-      {/* Desktop Track line */}
-      <div className="hidden sm:block absolute top-[13px] left-4 right-4 h-[2px] bg-line overflow-hidden rounded">
-        <div
-          className={`w-full h-full bg-[linear-gradient(90deg,#4FD1C5_50%,transparent_50%)] bg-[length:14px_100%] opacity-70 ${
-            shouldReduceMotion ? "" : "animate-dashflow"
-          }`}
-        />
+    <div className="my-3 py-3 px-3.5 sm:px-4 rounded-lg bg-surface border border-border">
+      <div className="text-[10px] sm:text-[11px] font-mono text-text-muted uppercase tracking-wider mb-2">
+        Architecture Flow
       </div>
-
-      {/* Nodes and Labels - Desktop (horizontal) / Mobile (2x2 grid or flex wrap) */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-10%" }}
-        className="hidden sm:flex justify-between items-start relative"
-      >
-        {nodes.map((label) => (
-          <motion.div
-            key={label}
-            variants={nodeVariants}
-            className="flex flex-col items-center text-center max-w-[130px]"
-          >
-            <div className="w-5 h-5 rounded-full bg-panel2 border-2 border-amber flex items-center justify-center z-10 shadow-sm transition-transform hover:scale-110">
-              <div className="w-1.5 h-1.5 rounded-full bg-amber" />
-            </div>
-            <span className="mt-2 font-mono text-[11.5px] text-muted font-medium leading-tight">
+      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+        {nodes.map((label, idx) => (
+          <div key={label} className="inline-flex items-center gap-1.5 sm:gap-2">
+            <span className="font-mono text-[11px] sm:text-xs text-text px-2 sm:px-2.5 py-0.5 sm:py-1 rounded border border-border bg-bg font-medium break-words">
               {label}
             </span>
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* Mobile Flow (Grid / Tag Pills with arrows) */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-10%" }}
-        className="sm:hidden flex flex-wrap items-center gap-2"
-      >
-        {nodes.map((label, idx) => (
-          <motion.div
-            key={label}
-            variants={nodeVariants}
-            className="flex items-center gap-2"
-          >
-            <div className="flex items-center gap-1.5 bg-panel2 border border-line px-2.5 py-1 rounded-md">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber flex-shrink-0" />
-              <span className="font-mono text-[11px] text-muted font-medium">
-                {label}
-              </span>
-            </div>
             {idx < nodes.length - 1 && (
-              <span className="font-mono text-[11px] text-teal/70 font-bold">
-                →
-              </span>
+              <span className="text-text-muted text-xs select-none">→</span>
             )}
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
-
-      <style jsx>{`
-        @keyframes dashflow {
-          to {
-            background-position: -28px 0;
-          }
-        }
-        .animate-dashflow {
-          animation: dashflow 3s linear infinite;
-        }
-      `}</style>
+      </div>
     </div>
   );
 }

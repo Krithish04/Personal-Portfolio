@@ -1,316 +1,235 @@
-"use client";
+import Link from "next/link";
+import { ArrowUpRight, Github } from "lucide-react";
 
-import { useState } from "react";
-import Image from "next/image";
-import { ExternalLink, Github, Layers, Eye, CheckCircle2, ArrowRight } from "lucide-react";
-import Reveal from "./Reveal";
-import SectionHead from "./SectionHead";
-import AnimatedStat from "./AnimatedStat";
-import TiltCard from "./TiltCard";
-import MiniFlow from "./MiniFlow";
-
-interface Project {
+export interface ProjectData {
   id: string;
+  slug: string;
   title: string;
   subtitle: string;
-  date: string;
-  badge: string;
+  summary: string;
+  bodyMarkdown?: string;
+  role?: string;
+  timeframe?: string;
+  featured: boolean;
   tech: string[];
-  description: string[];
-  stats?: { target: number; suffix: string; label: string; decimals?: number }[];
-  flowNodes?: string[];
-  image?: string;
   githubUrl?: string;
-  vercelUrl?: string;
+  demoUrl?: string;
+  flowNodes?: string[];
+  images?: { fileId: string; alt: string }[];
 }
 
-const projects: Project[] = [
+export const seedProjects: ProjectData[] = [
   {
     id: "dinesync",
-    title: "DineSync",
-    subtitle: "AI-Powered Multi-Tenant Restaurant ERP",
-    date: "08/2026 – Present",
-    badge: "Featured / Production",
-    tech: ["React", "FastAPI", "Node.js", "Socket.io", "Docker", "Scikit-Learn", "Google Gemini"],
-    description: [
-      "Engineered a multi-tenant restaurant platform utilizing React and Node.js, managing 500+ daily transactions with automated split-bill GST billing and inventory tracking.",
-      "Synchronized live KDS queues via Socket.io, handling up to 150 concurrent client connections with zero latency during peak operational hours.",
-      "Built a Python FastAPI microservice utilizing Google Gemini and scikit-learn for demand forecasting and smart menu optimization, achieving an 85% predictive accuracy.",
-      "Containerized multi-tier services using Docker Compose and established automated GitHub Actions CI/CD deployment pipelines, reducing manual server configuration time by 40%.",
-    ],
-    stats: [
-      { target: 500, suffix: "+", label: "daily transactions managed" },
-      { target: 150, suffix: "", label: "concurrent Socket.io KDS clients" },
-      { target: 85, suffix: "%", label: "AI forecast accuracy" },
-    ],
+    slug: "dinesync",
+    title: "DineSync AI",
+    subtitle: "Multi-Tenant Restaurant Platform with Real-Time KDS",
+    summary:
+      "Engineered an event-driven restaurant ERP with zero-latency Kitchen Display synchronization, time-series revenue forecasting, Redis locking, and automated CI/CD.",
+    featured: true,
+    tech: ["React", "FastAPI", "Node.js", "Socket.io", "Redis", "Docker", "Scikit-Learn"],
+    demoUrl: "https://dine-sync-ashen.vercel.app/",
     flowNodes: ["Client POS", "FastAPI Microservice", "Socket.io KDS Queue", "Docker CI/CD"],
-    image: "/dinesync_preview.jpg",
-    vercelUrl: "https://dine-sync-ashen.vercel.app/",
   },
   {
     id: "taskflow",
+    slug: "taskflow",
     title: "TaskFlow",
-    subtitle: "Project Management Platform with K8s Orchestration",
-    date: "06/2026 – 06/2026",
-    badge: "Cloud & DevOps",
-    tech: ["React", "Vite", "Node.js", "Express", "MongoDB", "Kubernetes", "Kustomize", "Docker"],
-    description: [
-      "Developed a 3-tier project tracker featuring interactive Kanban boards and dynamic task workflows, capable of managing 1,000+ active tasks with multi-tier RBAC for Admins, PMs, and Users.",
-      "Engineered declarative Kubernetes manifests with Kustomize overlays and persistent volume claims, orchestrating a highly available cluster designed to support 200+ concurrent users.",
-      "Implemented Docker containerization and automated CI/CD build-and-deploy workflows via GitHub Actions, accelerating deployment release cycles by 30%.",
-    ],
-    stats: [
-      { target: 1000, suffix: "+", label: "active tasks managed" },
-      { target: 200, suffix: "+", label: "concurrent K8s cluster users" },
-      { target: 30, suffix: "%", label: "faster release cycles" },
-    ],
-    flowNodes: ["React Kanban UI", "Express REST API", "MongoDB Pods", "K8s Ingress"],
-    image: "/taskflow_preview.jpg",
+    subtitle: "Role-Based Project Management Platform with GridFS",
+    summary:
+      "Developed a full-stack project management platform featuring interactive Kanban boards, multi-tier RBAC, document management with MongoDB GridFS, and Next.js App Router.",
+    featured: true,
+    tech: ["Next.js", "TypeScript", "Node.js", "MongoDB", "GridFS", "Tailwind CSS"],
     githubUrl: "https://github.com/Krithish04/taskflow",
-    vercelUrl: "https://taskflow-1-7sax.onrender.com/",
+    demoUrl: "https://taskflow-1-7sax.onrender.com/",
+    flowNodes: ["Next.js UI", "Server Actions & API", "MongoDB & GridFS", "Auth.js"],
   },
   {
     id: "agriguard",
+    slug: "agriguard",
     title: "AgriGuard",
     subtitle: "Crop Yield Prediction System",
-    date: "12/2025 – 12/2025",
-    badge: "ML Analytics",
+    summary:
+      "Trained an ML regression pipeline with scikit-learn forecasting agricultural yields based on soil and climate variables, served via a Flask REST API and React dashboard.",
+    featured: true,
     tech: ["React", "Flask", "Python", "Scikit-learn"],
-    description: [
-      "Trained and serialized an ML regression pipeline with scikit-learn to forecast crop yields based on soil and climate parameters.",
-      "Built a RESTful Flask backend and a responsive React analytics dashboard for real-time inference and data visualization.",
-    ],
-    stats: [
-      { target: 94.3, suffix: "%", decimals: 1, label: "model inference precision" },
-    ],
-    flowNodes: ["Soil/Climate Input", "Flask REST API", "Scikit-Learn ML", "React Dashboard"],
-    image: "/agriguard_preview.jpg",
-    githubUrl: "https://github.com/Krithish04/agriguard",
-    vercelUrl: "https://agriguard-analytics.vercel.app",
+    githubUrl: "https://github.com/Krithish04/Agriculture-Prediction",
+    flowNodes: ["Soil/Climate Input", "Flask REST API", "Scikit-Learn ML", "React UI"],
   },
   {
     id: "android-sms",
+    slug: "android-sms-gateway",
     title: "Android SMS Gateway Server",
     subtitle: "Embedded Cellular HTTP Server",
-    date: "08/2026 – 08/2026",
-    badge: "Mobile Systems",
+    summary:
+      "Exposes local REST endpoints from an Android foreground service and BootReceiver to programmatically trigger cellular SMS dispatches from external services.",
+    featured: false,
     tech: ["Kotlin", "Android SDK", "Embedded HTTP Server", "Foreground Service"],
-    description: [
-      "Developed an Android service exposing local REST APIs to programmatically trigger cellular SMS dispatches from external applications.",
-      "Configured a persistent background foreground service and BootReceiver to guarantee daemon uptime across device reboots.",
-    ],
-    flowNodes: ["REST API Call", "Embedded HTTP", "Foreground Service", "Cellular Dispatch"],
     githubUrl: "https://github.com/Krithish04/android-sms-gateway",
+    flowNodes: ["REST API Call", "Embedded HTTP", "Foreground Service", "Cellular Dispatch"],
   },
   {
     id: "morsemind",
+    slug: "morsemind",
     title: "MorseMind",
-    subtitle: "Interactive Morse Code Tutor App",
-    date: "04/2026 – 04/2026",
-    badge: "Native Android App",
+    subtitle: "Interactive Morse Code Learning App",
+    summary:
+      "Native Android educational application with dedicated symbol practice modules, real-time input decoding, and responsive XML layouts.",
+    featured: false,
     tech: ["Kotlin", "Android SDK", "Jetpack", "XML Layouts"],
-    description: [
-      "Built a native Android learning app with dedicated symbol practice modules, real-time input decoding, and structured XML layouts.",
-      "Designed clean architecture Kotlin components focused on minimal APK footprint and responsive UI interactions.",
-    ],
-    flowNodes: ["Symbol Module", "Real-Time Input", "Kotlin Decoder", "UI Feedback"],
     githubUrl: "https://github.com/Krithish04/morsemind",
+    flowNodes: ["Symbol Module", "Real-Time Input", "Kotlin Decoder", "UI Feedback"],
   },
 ];
 
-export default function Projects() {
-  const [activeTab, setActiveTab] = useState<{ [key: string]: "preview" | "flow" }>({});
-
-  const toggleTab = (id: string, tab: "preview" | "flow") => {
-    setActiveTab((prev) => ({ ...prev, [id]: tab }));
-  };
+export default function Projects({
+  projects = seedProjects,
+  showAll = false,
+  showCaseStudies = true,
+}: {
+  projects?: ProjectData[];
+  showAll?: boolean;
+  showCaseStudies?: boolean;
+}) {
+  const featured = projects.filter((p) => p.featured);
+  const others = projects.filter((p) => !p.featured);
 
   return (
-    <section id="projects" className="py-10 sm:py-16">
-      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 md:px-8">
-        <SectionHead index="04" title="Projects" />
-
-        <div className="grid grid-cols-1 gap-8 sm:gap-10">
-          {projects.map((proj, index) => {
-            const currentTab = activeTab[proj.id] || (proj.image ? "preview" : "flow");
-
-            return (
-              <Reveal key={proj.id} delay={index * 0.06}>
-                <TiltCard className="border border-line rounded-xl bg-panel overflow-hidden transition-colors hover:border-teal/60 [transform-style:preserve-3d] shadow-xl">
-                  {/* Window Bar */}
-                  <div className="h-10 bg-panel2 border-b border-line flex items-center justify-between px-3.5 sm:px-4">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#FF6B6B]" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-amber" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-teal" />
-                      <span className="font-mono text-[10px] sm:text-[11px] text-dim ml-2 sm:ml-3 bg-void/40 px-2.5 py-0.5 rounded truncate max-w-[160px] xs:max-w-[240px] sm:max-w-none">
-                        {proj.id}.internal/preview
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-2 font-mono text-[11px]">
-                      {proj.image && (
-                        <button
-                          type="button"
-                          onClick={() => toggleTab(proj.id, "preview")}
-                          className={`px-2.5 py-1 rounded transition-colors flex items-center gap-1 ${
-                            currentTab === "preview"
-                              ? "bg-amber/10 text-amber border border-amber/20"
-                              : "text-dim hover:text-primary"
-                          }`}
-                        >
-                          <Eye size={12} />
-                          <span className="hidden xs:inline">Preview</span>
-                        </button>
-                      )}
-                      {proj.flowNodes && (
-                        <button
-                          type="button"
-                          onClick={() => toggleTab(proj.id, "flow")}
-                          className={`px-2.5 py-1 rounded transition-colors flex items-center gap-1 ${
-                            currentTab === "flow"
-                              ? "bg-teal/10 text-teal border border-teal/20"
-                              : "text-dim hover:text-primary"
-                          }`}
-                        >
-                          <Layers size={12} />
-                          <span className="hidden xs:inline">Flow</span>
-                        </button>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="p-4 xs:p-6 sm:p-8">
-                    {/* Header Row */}
-                    <div className="flex justify-between items-start gap-3 flex-wrap">
-                      <div>
-                        <div className="font-mono text-xs text-amber font-semibold tracking-wide">
-                          {proj.subtitle}
-                        </div>
-                        <h3 className="font-mono font-extrabold text-lg xs:text-xl sm:text-2xl text-primary mt-1">
-                          {proj.title}
-                        </h3>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10.5px] text-dim">{proj.date}</span>
-                        <span className="font-mono text-[10px] sm:text-[11px] text-amber border border-amber/20 bg-amber/10 px-2.5 py-0.5 rounded-full whitespace-nowrap">
-                          {proj.badge}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Tech Badges */}
-                    <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-4">
-                      {proj.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="font-mono text-[10.5px] sm:text-[11.5px] text-muted border border-line bg-panel2/60 px-2.5 py-1 rounded-md"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Description Bullets */}
-                    <ul className="mt-4 space-y-2">
-                      {proj.description.map((b) => (
-                        <li key={b} className="flex items-start gap-2 text-muted text-[13.5px] xs:text-[14.5px] leading-relaxed">
-                          <CheckCircle2 size={15} className="text-teal flex-shrink-0 mt-1" />
-                          <span>{b}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Visual Media Preview vs Architecture Flow */}
-                    <div className="mt-6 pt-5 border-t border-linesoft">
-                      {currentTab === "preview" && proj.image ? (
-                        <div className="relative rounded-lg overflow-hidden border border-line bg-void/80 shadow-md group">
-                          <Image
-                            src={proj.image}
-                            alt={`${proj.title} live dashboard preview`}
-                            width={1280}
-                            height={720}
-                            className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                          />
-                          {proj.vercelUrl && (
-                            <a
-                              href={proj.vercelUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="absolute inset-0 bg-gradient-to-t from-void/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4"
-                            >
-                              <span className="font-mono text-xs text-teal font-semibold flex items-center gap-1">
-                                Live Application Preview <ArrowRight size={14} />
-                              </span>
-                            </a>
-                          )}
-                        </div>
-                      ) : proj.flowNodes ? (
-                        <div>
-                          <div className="font-mono text-[10px] text-dim tracking-wide mb-2">
-                            DATA &amp; ARCHITECTURE FLOW
-                          </div>
-                          <MiniFlow nodes={proj.flowNodes} />
-                        </div>
-                      ) : null}
-                    </div>
-
-                    {/* Stats grid */}
-                    {proj.stats && (
-                      <div className="grid grid-cols-2 sm:flex sm:gap-9 gap-4 mt-5 pt-4 border-t border-linesoft">
-                        {proj.stats.map((s) => (
-                          <AnimatedStat
-                            key={s.label}
-                            target={s.target}
-                            suffix={s.suffix}
-                            decimals={s.decimals}
-                            label={s.label}
-                          />
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Action Links (Git & Vercel Preview Buttons) */}
-                    <div className="mt-6 pt-5 border-t border-linesoft flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        {proj.vercelUrl && (
-                          <a
-                            href={proj.vercelUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-semibold px-4 py-2 rounded-lg bg-teal text-void hover:bg-teal/90 transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(79,209,197,0.25)] active:scale-95"
-                          >
-                            <ExternalLink size={14} />
-                            <span>Live Application Preview</span>
-                          </a>
-                        )}
-                        {proj.githubUrl && (
-                          <a
-                            href={proj.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-4 py-2 rounded-lg border border-line text-primary hover:border-amber hover:text-amber transition-all flex items-center gap-2 bg-panel2/50 active:scale-95"
-                          >
-                            <Github size={14} />
-                            <span>View Git Repository</span>
-                          </a>
-                        )}
-                      </div>
-
-                      {proj.vercelUrl && (
-                        <div className="flex items-center gap-2 text-[11px] text-teal/90">
-                          <span className="w-2 h-2 rounded-full bg-teal animate-blink" />
-                          <span>status: 200 live</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </TiltCard>
-              </Reveal>
-            );
-          })}
-        </div>
+    <section id="projects" className="py-8 sm:py-12 border-b border-border">
+      <div className="flex items-baseline justify-between mb-4 sm:mb-6">
+        <h2 className="font-serif text-xl xs:text-2xl sm:text-3xl font-semibold tracking-tight text-text">
+          {showAll ? "All Projects" : "Selected Work"}
+        </h2>
+        {!showAll && (
+          <Link
+            href="/projects"
+            className="text-xs font-mono text-text-muted hover:text-accent transition-colors shrink-0 ml-2"
+          >
+            View all ({projects.length}) →
+          </Link>
+        )}
       </div>
+
+      {/* Featured Projects Grid */}
+      <div className="space-y-4 sm:space-y-6">
+        {(showAll ? projects : featured).map((project) => (
+          <article
+            key={project.id}
+            className="p-4 sm:p-6 rounded-lg bg-surface border border-border hover:border-accent/60 transition-colors"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5 sm:gap-4 mb-2">
+              <div className="min-w-0">
+                <h3 className="font-serif text-lg xs:text-xl font-semibold text-text">
+                  {showCaseStudies ? (
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="hover:text-accent transition-colors inline-flex items-center gap-1.5"
+                    >
+                      <span>{project.title}</span>
+                      <ArrowUpRight size={15} className="text-text-muted shrink-0" />
+                    </Link>
+                  ) : (
+                    project.title
+                  )}
+                </h3>
+                <p className="text-xs font-mono text-text-muted mt-0.5">
+                  {project.subtitle}
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 self-start font-mono text-xs text-text-muted shrink-0">
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2.5 py-1 rounded border border-border bg-bg/50 hover:border-accent hover:text-text transition-colors inline-flex items-center gap-1"
+                    aria-label={`GitHub repository for ${project.title}`}
+                  >
+                    <Github size={12} />
+                    <span>Code</span>
+                  </a>
+                )}
+                {project.demoUrl && (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2.5 py-1 rounded bg-accent text-white hover:opacity-90 transition-opacity inline-flex items-center gap-1 font-medium"
+                    aria-label={`Live demo for ${project.title}`}
+                  >
+                    <span>Live</span>
+                    <ArrowUpRight size={12} />
+                  </a>
+                )}
+              </div>
+            </div>
+
+            <p className="text-xs xs:text-sm text-text-muted leading-relaxed mt-2 mb-3.5 sm:mb-4">
+              {project.summary}
+            </p>
+
+            <div className="flex flex-wrap gap-1 sm:gap-1.5">
+              {project.tech.map((t) => (
+                <span
+                  key={t}
+                  className="font-mono text-[10.5px] xs:text-[11px] text-text-muted px-2 py-0.5 rounded bg-bg border border-border"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {/* More projects list when on home page */}
+      {!showAll && others.length > 0 && (
+        <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-border">
+          <h3 className="font-mono text-xs uppercase tracking-wider text-text-muted mb-3 sm:mb-4">
+            More Projects
+          </h3>
+          <div className="space-y-2 sm:space-y-3">
+            {others.map((p) => (
+              <div
+                key={p.id}
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 py-2 border-b border-border/40 last:border-0"
+              >
+                <div className="min-w-0">
+                  <span className="font-medium text-sm text-text">
+                    {showCaseStudies ? (
+                      <Link
+                        href={`/projects/${p.slug}`}
+                        className="hover:text-accent transition-colors"
+                      >
+                        {p.title}
+                      </Link>
+                    ) : (
+                      p.title
+                    )}
+                  </span>
+                  <span className="text-xs text-text-muted block xs:inline xs:ml-2">
+                    — {p.subtitle}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 sm:gap-3 font-mono text-xs text-text-muted shrink-0 self-start sm:self-auto">
+                  <span className="hidden md:inline">{p.tech.slice(0, 3).join(", ")}</span>
+                  {p.githubUrl && (
+                    <a
+                      href={p.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-2 py-0.5 rounded border border-border text-xs hover:border-accent hover:text-accent transition-colors"
+                    >
+                      Code ↗
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

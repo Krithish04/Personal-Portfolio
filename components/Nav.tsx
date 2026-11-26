@@ -1,161 +1,137 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import Magnetic from "./Magnetic";
+import ThemeToggle from "./ThemeToggle";
 
-const links = [
-  { num: "01", label: "About", href: "#about" },
-  { num: "02", label: "Experience", href: "#experience" },
-  { num: "03", label: "Process", href: "#process" },
-  { num: "04", label: "Projects", href: "#projects" },
-  { num: "05", label: "Skills", href: "#skills" },
-  { num: "06", label: "Education", href: "#education" },
-  { num: "07", label: "Contact", href: "#contact" },
-];
+interface NavProps {
+  showBlog?: boolean;
+  showResume?: boolean;
+  showContact?: boolean;
+}
 
-export default function Nav() {
-  const [active, setActive] = useState<string>("about");
-  const [progress, setProgress] = useState(0);
+export default function Nav({
+  showBlog = true,
+  showResume = true,
+  showContact = true,
+}: NavProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
+  const navLinks = [
+    { label: "Home", href: "/" },
+    { label: "Projects", href: "/projects" },
+    ...(showBlog ? [{ label: "Blog", href: "/blog" }] : []),
+    ...(showResume ? [{ label: "Resume", href: "/resume" }] : []),
+    ...(showContact ? [{ label: "Contact", href: "/contact" }] : []),
+  ];
+
+  // Close mobile menu on route change
   useEffect(() => {
-    const sections = links
-      .map((l) => document.getElementById(l.href.slice(1)))
-      .filter(Boolean) as HTMLElement[];
+    setMobileOpen(false);
+  }, [pathname]);
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
-    );
-    sections.forEach((s) => io.observe(s));
-
-    function onScroll() {
-      const h = document.documentElement;
-      const scrolled = h.scrollTop;
-      const max = h.scrollHeight - h.clientHeight;
-      setProgress(max > 0 ? (scrolled / max) * 100 : 0);
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-
-    return () => {
-      io.disconnect();
-      window.removeEventListener("scroll", onScroll);
+  // Close mobile menu on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
     };
-  }, []);
-
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
     if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+      window.addEventListener("keydown", handleKeyDown);
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mobileOpen]);
 
   return (
-    <>
-      {/* Mobile Drawer Backdrop Overlay */}
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 z-[90] bg-void/80 backdrop-blur-sm md:hidden transition-opacity"
-          onClick={() => setMobileOpen(false)}
-          aria-hidden="true"
-        />
-      )}
+    <header className="w-full border-b border-border bg-bg/95 backdrop-blur-sm sticky top-0 z-40 transition-colors">
+      <div className="max-w-container mx-auto px-4 sm:px-6 md:px-8 h-15 sm:h-16 flex items-center justify-between">
+        {/* Name / Brand */}
+        <Link
+          href="/"
+          className="font-serif text-base xs:text-lg sm:text-xl font-semibold tracking-tight text-text hover:text-accent transition-colors truncate max-w-[220px] xs:max-w-none"
+        >
+          Krithish Suvarna
+        </Link>
 
-      <nav className="fixed top-0 left-0 right-0 z-[100] backdrop-blur-md bg-void/85 border-b border-line">
-        <div className="max-w-[1080px] mx-auto px-4 sm:px-6 md:px-8 h-16 flex items-center justify-between">
-          <Magnetic strength={8}>
-            <a
-              href="#"
-              className="font-mono text-xs sm:text-sm font-semibold flex items-center gap-2 text-primary"
-              onClick={() => setMobileOpen(false)}
-            >
-              <span className="w-2 h-2 rounded-full bg-teal shadow-[0_0_8px_#4FD1C5] animate-blink" />
-              krithish@dev:~$
-            </a>
-          </Magnetic>
-
-          {/* Desktop menu */}
-          <div className="hidden md:flex gap-7 font-mono text-[13px]">
-            {links.map((l) => {
-              const isActive = active === l.href.slice(1);
+        {/* Desktop Navigation Links & Theme Toggle */}
+        <div className="hidden md:flex items-center gap-6">
+          <nav aria-label="Main Navigation" className="flex items-center gap-6">
+            {navLinks.map((item) => {
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href);
               return (
-                <Magnetic key={l.href} as="a" href={l.href} strength={8}>
-                  <span
-                    className={`relative py-1 transition-colors group inline-block ${
-                      isActive ? "text-amber" : "text-muted hover:text-amber"
-                    }`}
-                  >
-                    <span className="text-dim mr-1">{l.num}</span>
-                    {l.label}
-                    <span
-                      className={`absolute left-0 bottom-0 h-px bg-amber transition-all duration-300 ${
-                        isActive ? "w-full" : "w-0 group-hover:w-full"
-                      }`}
-                    />
-                  </span>
-                </Magnetic>
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`text-sm transition-colors py-1 ${
+                    isActive
+                      ? "text-accent font-medium"
+                      : "text-text-muted hover:text-text"
+                  }`}
+                >
+                  {item.label}
+                </Link>
               );
             })}
-          </div>
+          </nav>
+          <div className="h-4 w-px bg-border" aria-hidden="true" />
+          <ThemeToggle />
+        </div>
 
-          {/* Mobile menu button */}
+        {/* Mobile controls */}
+        <div className="flex items-center gap-1.5 md:hidden">
+          <ThemeToggle />
           <button
             type="button"
-            onClick={() => setMobileOpen((aria) => !aria)}
-            className="md:hidden p-2.5 rounded-lg border border-line text-muted hover:text-teal hover:border-teal transition-colors active:scale-95"
-            aria-label="Toggle navigation menu"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={mobileOpen}
+            className="w-9 h-9 rounded-md border border-border flex items-center justify-center text-text-muted hover:text-text hover:border-accent active:bg-surface transition-colors"
           >
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
+      </div>
 
-        {/* Mobile nav drawer */}
-        {mobileOpen && (
-          <div className="md:hidden border-b border-line bg-panel/95 backdrop-blur-xl px-5 py-4 animate-in fade-in slide-in-from-top-2 duration-200 shadow-2xl">
-            <div className="flex flex-col gap-2 font-mono text-[14px]">
-              {links.map((l) => {
-                const isActive = active === l.href.slice(1);
-                return (
-                  <a
-                    key={l.href}
-                    href={l.href}
-                    onClick={() => setMobileOpen(false)}
-                    className={`flex items-center gap-3 py-3 px-4 rounded-lg transition-colors text-left ${
-                      isActive
-                        ? "bg-amber/10 text-amber font-semibold border border-amber/20"
-                        : "text-muted hover:text-primary hover:bg-panel2 active:bg-panel2"
-                    }`}
-                  >
-                    <span className="text-teal font-bold text-xs">{l.num}</span>
-                    <span className="text-[14.5px]">{l.label}</span>
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        <div className="h-[2px] bg-line/40">
+      {/* Mobile Menu Dropdown with Backdrop */}
+      {mobileOpen && (
+        <>
           <div
-            className="h-full bg-gradient-to-r from-teal to-amber transition-[width] duration-150 ease-linear"
-            style={{ width: `${progress}%` }}
+            className="fixed inset-0 top-[60px] bg-bg/40 backdrop-blur-xs md:hidden z-40"
+            onClick={() => setMobileOpen(false)}
+            aria-hidden="true"
           />
-        </div>
-      </nav>
-    </>
+          <nav
+            aria-label="Mobile Navigation"
+            className="relative z-50 md:hidden border-t border-border bg-surface px-4 py-3 space-y-1 shadow-lg"
+          >
+            {navLinks.map((item) => {
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`flex items-center px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
+                    isActive
+                      ? "bg-accent/10 text-accent font-semibold"
+                      : "text-text-muted hover:text-text hover:bg-bg/60 active:bg-bg"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+        </>
+      )}
+    </header>
   );
 }

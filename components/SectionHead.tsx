@@ -1,19 +1,17 @@
-import Reveal from "./Reveal";
-
 export default function SectionHead({
-  index,
   title,
+  subtitle,
 }: {
-  index: string;
   title: string;
+  subtitle?: string;
+  index?: string;
 }) {
   return (
-    <Reveal className="flex items-baseline gap-4 mb-8">
-      <span className="font-mono text-sm text-amber">{index}</span>
-      <span className="font-mono font-bold text-[clamp(1.6rem,3vw,2.1rem)] tracking-tight">
+    <div className="mb-6">
+      <h2 className="font-serif text-2xl sm:text-3xl font-semibold tracking-tight text-text">
         {title}
-      </span>
-      <div className="flex-1 h-px bg-line" />
-    </Reveal>
+      </h2>
+      {subtitle && <p className="text-text-muted text-sm mt-1">{subtitle}</p>}
+    </div>
   );
 }

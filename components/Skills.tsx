@@ -1,125 +1,51 @@
-"use client";
+interface SkillGroup {
+  title: string;
+  items: string[];
+}
 
-import { Code2, Boxes, BarChart3 } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
-import Reveal from "./Reveal";
-import SectionHead from "./SectionHead";
-import Magnetic from "./Magnetic";
-
-const groups = [
+const defaultSkills: SkillGroup[] = [
   {
-    title: "Development",
-    icon: Code2,
-    items: [
-      "MongoDB",
-      "Express.js",
-      "React.js",
-      "Node.js",
-      "Next.js",
-      "FastAPI",
-      "Flask",
-      "Python",
-      "Kotlin",
-      "SQL",
-      "JavaScript (ES6+)",
-      "HTML5/CSS3",
-    ],
+    title: "Languages",
+    items: ["JavaScript (ES6+)", "TypeScript", "Python", "Kotlin", "SQL", "HTML5/CSS3"],
+  },
+  {
+    title: "Frontend",
+    items: ["React.js", "Next.js", "Tailwind CSS", "Vite"],
+  },
+  {
+    title: "Backend & Data",
+    items: ["Node.js", "Express.js", "FastAPI", "Flask", "MongoDB", "PostgreSQL", "Redis", "REST APIs"],
   },
   {
     title: "DevOps & Tools",
-    icon: Boxes,
-    items: [
-      "Kubernetes",
-      "Kustomize",
-      "Docker",
-      "Docker Compose",
-      "Git",
-      "GitHub Actions",
-      "Linux/Bash",
-      "REST APIs",
-      "CI/CD Pipelines",
-      "Nginx",
-    ],
-  },
-  {
-    title: "Analytics & Business",
-    icon: BarChart3,
-    items: [
-      "Scikit-learn",
-      "Socket.io",
-      "Power BI",
-      "Android Studio",
-      "WhatsApp Business API",
-      "Postman",
-    ],
+    items: ["Docker", "Docker Compose", "Git", "GitHub Actions", "Linux / Bash", "Postman", "Nginx"],
   },
 ];
 
-export default function Skills() {
-  const shouldReduceMotion = useReducedMotion();
-
-  const chipContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.03,
-      },
-    },
-  };
-
-  const chipVariants = {
-    hidden: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.88, y: shouldReduceMotion ? 0 : 8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { duration: 0.35, ease: "easeOut" as const },
-    },
-  };
-
+export default function Skills({ groups = defaultSkills }: { groups?: SkillGroup[] }) {
   return (
-    <section id="skills" className="py-10 sm:py-16">
-      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 md:px-8">
-        <SectionHead index="05" title="Skills" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {groups.map((g, i) => {
-            const Icon = g.icon;
-            return (
-              <Reveal key={g.title} delay={i * 0.08}>
-                <div className="group border border-line rounded-xl p-4.5 xs:p-5 sm:p-6 bg-panel h-full transition-colors hover:border-teal/50 flex flex-col justify-between shadow-sm">
-                  <div>
-                    <div className="flex items-center gap-2.5 mb-3.5 sm:mb-5">
-                      <div className="w-8 h-8 rounded-md bg-panel2 border border-line flex items-center justify-center transition-colors group-hover:border-amber">
-                        <Icon size={15} className="text-teal" strokeWidth={1.75} />
-                      </div>
-                      <div className="font-mono text-xs text-dim tracking-wide">
-                        {g.title}
-                      </div>
-                    </div>
-                    <motion.div
-                      variants={chipContainerVariants}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true, margin: "-10%" }}
-                      className="flex flex-wrap gap-2 sm:gap-2.5"
-                    >
-                      {g.items.map((item) => (
-                        <motion.div key={item} variants={chipVariants}>
-                          <Magnetic strength={6}>
-                            <span className="font-mono text-[11.5px] sm:text-[12.5px] px-2.5 sm:px-3 py-1.5 sm:py-[7px] rounded-md bg-panel2 border border-line text-primary transition-all hover:border-teal hover:text-teal inline-block cursor-default">
-                              {item}
-                            </span>
-                          </Magnetic>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  </div>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
+    <section id="skills" className="py-8 sm:py-12 border-b border-border">
+      <h2 className="font-serif text-xl xs:text-2xl sm:text-3xl font-semibold tracking-tight text-text mb-4 sm:mb-6">
+        Skills
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-6">
+        {groups.map((group) => (
+          <div key={group.title} className="p-3.5 sm:p-4 rounded-lg bg-surface border border-border">
+            <h3 className="font-mono text-xs uppercase tracking-wider text-accent font-medium mb-2.5 sm:mb-3">
+              {group.title}
+            </h3>
+            <div className="flex flex-wrap gap-1 sm:gap-1.5">
+              {group.items.map((item) => (
+                <span
+                  key={item}
+                  className="font-mono text-[10.5px] xs:text-xs text-text px-2 py-0.5 sm:py-1 rounded bg-bg border border-border"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
