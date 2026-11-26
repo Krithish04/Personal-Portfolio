@@ -4,6 +4,7 @@ import { connectDB } from "@/lib/db";
 import { Message, Event } from "@/models";
 import { checkRateLimit } from "@/lib/rateLimit";
 import { isFeatureEnabled } from "@/lib/data";
+import { sendContactNotification } from "@/lib/email";
 
 const ContactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -76,6 +77,13 @@ export async function POST(req: NextRequest) {
     try {
       await Event.create({ type: "contact_submit" });
     } catch {}
+
+    // Dispatch email notification to Google Mail (Gmail)
+    try {
+      await sendContactNotification({ name, email, message });
+    } catch (mailErr) {
+      console.error("Email notification error (message safely saved in DB):", mailErr);
+    }
 
     return NextResponse.json({
       success: true,
