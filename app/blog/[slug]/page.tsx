@@ -127,7 +127,7 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </article>
       </main>
-      <Footer showPhone={flags.showPhone} />
+      <Footer showBlog={flags.blog} showResume={flags.resumeDownload} />
     </div>
   );
 }

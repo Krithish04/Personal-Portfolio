@@ -8,6 +8,7 @@ export interface ProjectData {
   subtitle: string;
   summary: string;
   bodyMarkdown?: string;
+  deployment?: string;
   role?: string;
   timeframe?: string;
   featured: boolean;
@@ -23,11 +24,13 @@ export const seedProjects: ProjectData[] = [
     id: "dinesync",
     slug: "dinesync",
     title: "DineSync AI",
-    subtitle: "Multi-Tenant Restaurant Platform with Real-Time KDS",
+    subtitle: "Multi-tenant restaurant platform with a real-time kitchen display",
     summary:
-      "Engineered an event-driven restaurant ERP with zero-latency Kitchen Display synchronization, time-series revenue forecasting, Redis locking, and automated CI/CD.",
+      "A restaurant platform covering billing, QR ordering, inventory and reservations. Orders reach the kitchen display live over Socket.IO, a FastAPI service handles forecasting, and Redis guards table locking. Runs in Docker with a GitHub Actions pipeline.",
+    deployment:
+      "Containerized multi-stage Docker build. Deployed to production using GitHub Actions CI/CD pipelines with automated health checks.",
     featured: true,
-    tech: ["React", "FastAPI", "Node.js", "Socket.io", "Redis", "Docker", "Scikit-Learn"],
+    tech: ["React", "Node.js", "FastAPI", "Socket.IO", "Redis", "MongoDB", "Docker"],
     demoUrl: "https://dine-sync-ashen.vercel.app/",
     flowNodes: ["Client POS", "FastAPI Microservice", "Socket.io KDS Queue", "Docker CI/CD"],
   },
@@ -35,24 +38,26 @@ export const seedProjects: ProjectData[] = [
     id: "taskflow",
     slug: "taskflow",
     title: "TaskFlow",
-    subtitle: "Role-Based Project Management Platform with GridFS",
+    subtitle: "Role-based project management platform",
     summary:
-      "Developed a full-stack project management platform featuring interactive Kanban boards, multi-tier RBAC, document management with MongoDB GridFS, and Next.js App Router.",
+      "A project tracker with Kanban boards, Admin, PM and Member roles, per-project data isolation and file uploads stored in MongoDB GridFS. Ships as a multi-stage Docker image with a GitHub Actions pipeline.",
+    deployment:
+      "Multi-stage Docker image with an automated GitHub Actions CI/CD pipeline verifying lint, types, and build before deployment.",
     featured: true,
-    tech: ["Next.js", "TypeScript", "Node.js", "MongoDB", "GridFS", "Tailwind CSS"],
+    tech: ["Next.js", "TypeScript", "MongoDB", "GridFS", "Docker", "GitHub Actions"],
     githubUrl: "https://github.com/Krithish04/taskflow",
-    demoUrl: "https://taskflow-1-7sax.onrender.com/",
-    flowNodes: ["Next.js UI", "Server Actions & API", "MongoDB & GridFS", "Auth.js"],
+    demoUrl: "https://task-flow-eight-black-21.vercel.app/",
+    flowNodes: ["Next.js UI", "Server Actions & API", "MongoDB & GridFS", "Docker CI/CD"],
   },
   {
     id: "agriguard",
     slug: "agriguard",
     title: "AgriGuard",
-    subtitle: "Crop Yield Prediction System",
+    subtitle: "Crop yield prediction",
     summary:
-      "Trained an ML regression pipeline with scikit-learn forecasting agricultural yields based on soil and climate variables, served via a Flask REST API and React dashboard.",
+      "A scikit-learn regression model that estimates crop yield from soil and climate inputs, served through a Flask API and a React dashboard.",
     featured: true,
-    tech: ["React", "Flask", "Python", "Scikit-learn"],
+    tech: ["React", "Flask", "Python", "scikit-learn"],
     githubUrl: "https://github.com/Krithish04/Agriculture-Prediction",
     flowNodes: ["Soil/Climate Input", "Flask REST API", "Scikit-Learn ML", "React UI"],
   },
@@ -62,22 +67,22 @@ export const seedProjects: ProjectData[] = [
     title: "Android SMS Gateway Server",
     subtitle: "Embedded Cellular HTTP Server",
     summary:
-      "Exposes local REST endpoints from an Android foreground service and BootReceiver to programmatically trigger cellular SMS dispatches from external services.",
+      "An Android app that runs a local HTTP server so other apps can send SMS through the phone.",
     featured: false,
-    tech: ["Kotlin", "Android SDK", "Embedded HTTP Server", "Foreground Service"],
-    githubUrl: "https://github.com/Krithish04/android-sms-gateway",
+    tech: ["Kotlin", "Android SDK"],
+    githubUrl: "https://github.com/Krithish04/SMS_Sender",
     flowNodes: ["REST API Call", "Embedded HTTP", "Foreground Service", "Cellular Dispatch"],
   },
   {
     id: "morsemind",
     slug: "morsemind",
     title: "MorseMind",
-    subtitle: "Interactive Morse Code Learning App",
+    subtitle: "Morse Code Tutor App",
     summary:
-      "Native Android educational application with dedicated symbol practice modules, real-time input decoding, and responsive XML layouts.",
+      "An Android app for learning Morse code with practice modules and live input decoding.",
     featured: false,
-    tech: ["Kotlin", "Android SDK", "Jetpack", "XML Layouts"],
-    githubUrl: "https://github.com/Krithish04/morsemind",
+    tech: ["Kotlin", "Android SDK", "Jetpack"],
+    githubUrl: "https://github.com/Krithish04/MorseMind",
     flowNodes: ["Symbol Module", "Real-Time Input", "Kotlin Decoder", "UI Feedback"],
   },
 ];
@@ -149,6 +154,7 @@ export default function Projects({
                   >
                     <Github size={12} />
                     <span>Code</span>
+                    <span className="sr-only">(opens in new tab)</span>
                   </a>
                 )}
                 {project.demoUrl && (
@@ -161,14 +167,24 @@ export default function Projects({
                   >
                     <span>Live</span>
                     <ArrowUpRight size={12} />
+                    <span className="sr-only">(opens in new tab)</span>
                   </a>
                 )}
               </div>
             </div>
 
-            <p className="text-xs xs:text-sm text-text-muted leading-relaxed mt-2 mb-3.5 sm:mb-4">
+            <p className="text-xs xs:text-sm text-text-muted leading-relaxed mt-2 mb-3 sm:mb-3.5">
               {project.summary}
             </p>
+
+            {project.deployment && (
+              <div className="text-[11px] font-mono text-text-muted mb-3 sm:mb-3.5 px-2.5 py-1.5 rounded border border-border bg-bg/50">
+                <span className="font-semibold text-accent uppercase text-[10px] tracking-wider mr-1.5">
+                  Deployment:
+                </span>
+                <span>{project.deployment}</span>
+              </div>
+            )}
 
             <div className="flex flex-wrap gap-1 sm:gap-1.5">
               {project.tech.map((t) => (

@@ -18,9 +18,9 @@ export default function Avatar({
     >
       <Image
         src="/avatar.jpg"
-        alt="Krithish Ravindra Suvarna"
+        alt="Portrait of Krithish Suvarna"
         fill
-        sizes="(max-width: 640px) 96px, (max-width: 768px) 112px, 128px"
+        sizes="(max-width: 640px) 192px, (max-width: 768px) 256px, 288px"
         className="object-cover"
         priority
       />

@@ -125,7 +125,7 @@ export default function PostForm({ initialData, isNew = false }: PostFormProps) 
               required
               value={formData.title}
               onChange={(e) => handleTitleChange(e.target.value)}
-              placeholder="e.g. Architecting Zero-Latency WebSockets"
+              placeholder="e.g. Building Real-Time WebSockets"
               className="w-full px-3 py-2 rounded border border-border bg-surface text-base sm:text-sm text-text focus:border-accent outline-none"
             />
           </div>
@@ -139,7 +139,7 @@ export default function PostForm({ initialData, isNew = false }: PostFormProps) 
               required
               value={formData.slug}
               onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-              placeholder="architecting-zero-latency-websockets"
+              placeholder="building-real-time-websockets"
               className="w-full px-3 py-2 rounded border border-border bg-surface text-base sm:text-sm font-mono text-text focus:border-accent outline-none"
             />
           </div>

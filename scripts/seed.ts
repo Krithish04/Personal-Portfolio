@@ -21,9 +21,16 @@ export async function runSeed() {
   await Profile.deleteMany({});
   await Profile.create({
     name: "Krithish Ravindra Suvarna",
-    tagline: "Full-Stack Developer & Automation Specialist",
+    tagline: "Full-Stack Developer & DevOps Intern",
+    eyebrow: "FULL-STACK DEVELOPER & DEVOPS INTERN",
     intro:
-      "Strategic MCA candidate specializing in MERN stack architecture, Python microservices, and reliable cloud deployments. Focused on building clean, high-performance web systems and automating resilient infrastructure.",
+      "I build full-stack web applications and the deployment pipelines that ship them. I work mostly with Node.js, React and Python, and I use Docker and GitHub Actions to take projects from a local build to a running service.",
+    heroIntro:
+      "I build full-stack web applications and the deployment pipelines that ship them. I work mostly with Node.js, React and Python, and I use Docker and GitHub Actions to take projects from a local build to a running service.",
+    aboutMarkdown:
+      "I'm an MCA student at Christ University (Delhi NCR), based in Surat. In 2026 I worked as a MERN stack intern at Devisoft and as a freelance developer, building a lead-management system with WhatsApp Business API integrations.\n\nMy personal projects are where I practise the full path from code to deployment. DineSync is a multi-tenant restaurant platform with real-time kitchen displays. TaskFlow is a project management app with role-based access, a Docker build and a GitHub Actions pipeline.\n\nI'm looking for internship and entry-level roles in full-stack, backend or DevOps engineering.",
+    contactBlurb:
+      "I'm open to internship and entry-level roles in full-stack, backend and DevOps engineering. The quickest way to reach me is email.",
     email: "suvarnakrithish24@gmail.com",
     phone: "+919428141156",
     socials: [
@@ -31,8 +38,8 @@ export async function runSeed() {
       { platform: "LinkedIn", url: "https://www.linkedin.com/in/krithish04" },
     ],
     metaDescription:
-      "Personal portfolio of Krithish Ravindra Suvarna — Full-Stack Developer & DevOps Specialist. Specializing in MERN stack architecture, Python microservices, and cloud deployments.",
-    footerText: "Built with care. Simple, calm, and resilient.",
+      "Portfolio of Krithish Ravindra Suvarna, a full-stack developer and DevOps intern. MERN and Next.js apps, Python services, Docker and CI/CD pipelines.",
+    footerText: "© 2026 Krithish Ravindra Suvarna",
   });
   console.log("✓ Profile seeded.");
 
@@ -42,33 +49,35 @@ export async function runSeed() {
     {
       title: "DineSync AI",
       slug: "dinesync",
-      subtitle: "Multi-Tenant Restaurant Platform with Real-Time KDS",
+      subtitle: "Multi-tenant restaurant platform with a real-time kitchen display",
       summary:
-        "Engineered an event-driven restaurant ERP with zero-latency Kitchen Display synchronization, time-series revenue forecasting, Redis locking, and automated CI/CD.",
+        "A restaurant platform covering billing, QR ordering, inventory and reservations. Orders reach the kitchen display live over Socket.IO, a FastAPI service handles forecasting, and Redis guards table locking. Runs in Docker with a GitHub Actions pipeline.",
       bodyMarkdown: `## Overview
-DineSync is a multi-tenant restaurant management and Kitchen Display System (KDS) engineered to eliminate ordering bottlenecks and inventory discrepancies in high-volume hospitality environments.
+DineSync is a multi-tenant restaurant platform covering billing, QR ordering, inventory and reservations.
 
 ## The Problem
 Traditional POS and kitchen systems often rely on periodic polling or disjointed hardware interfaces. This introduces latency during peak service hours, resulting in duplicate order processing, delayed tickets, and inaccurate real-time inventory depletion figures.
 
 ## Approach & Key Decisions
-- **Real-Time Synchronization**: Implemented Socket.IO WebSocket pipelines connecting client order terminals to the central Kitchen Display with sub-millisecond dispatch.
-- **Microservice Architecture**: Decoupled forecasting and natural language reservation parsing into an autonomous Python FastAPI service.
-- **Concurrency Control**: Designed a distributed Redis locking mechanism with automatic TTL fallbacks to guarantee atomic table seatings and avoid double-bookings.
-- **Automated Delivery**: Containerized the entire topology with Docker Compose and automated deployments via GitHub Actions.
+- **Live Synchronization**: Implemented Socket.IO WebSocket pipelines connecting client order terminals to the central Kitchen Display.
+- **FastAPI Forecasting Service**: Decoupled forecasting and natural language reservation parsing into a Python FastAPI service.
+- **Table Concurrency Control**: Designed a distributed Redis locking mechanism with automatic TTL fallbacks to guarantee atomic table seatings and avoid double-bookings.
+- **Docker Deployment**: Containerized the topology with Docker Compose and set up automated deployments with GitHub Actions.
 
 ## Outcome
-Demonstrated zero message loss across synthetic peak load tests and reduced kitchen ticket latency from minutes to milliseconds.`,
-      role: "Lead Full-Stack & System Architect",
+Demonstrated reliable message delivery across peak load tests and reduced kitchen ticket latency from minutes to milliseconds.`,
+      deployment:
+        "Containerized multi-stage Docker build. Deployed to production using GitHub Actions CI/CD pipelines with automated health checks.",
+      role: "Lead Full-Stack Developer",
       timeframe: "08/2026 – Present",
       tech: [
         "React",
-        "FastAPI",
         "Node.js",
-        "Socket.io",
+        "FastAPI",
+        "Socket.IO",
         "Redis",
+        "MongoDB",
         "Docker",
-        "Scikit-Learn",
       ],
       links: {
         demo: "https://dine-sync-ashen.vercel.app/",
@@ -86,9 +95,9 @@ Demonstrated zero message loss across synthetic peak load tests and reduced kitc
     {
       title: "TaskFlow",
       slug: "taskflow",
-      subtitle: "Role-Based Project Management Platform with GridFS",
+      subtitle: "Role-based project management platform",
       summary:
-        "Developed a full-stack project management platform featuring interactive Kanban boards, multi-tier RBAC, document management with MongoDB GridFS, and Next.js App Router.",
+        "A project tracker with Kanban boards, Admin, PM and Member roles, per-project data isolation and file uploads stored in MongoDB GridFS. Ships as a multi-stage Docker image with a GitHub Actions pipeline.",
       bodyMarkdown: `## Overview
 TaskFlow is a role-based project coordination platform designed to organize tasks, sprint milestones, and project document attachments with granular permission hierarchies.
 
@@ -97,30 +106,32 @@ Small development teams frequently switch between disparate task boards and exte
 
 ## Approach & Key Decisions
 - **Unified Document Storage**: Leveraged MongoDB GridFS to manage binary file attachments directly alongside task documents, streamlining database backups and eliminating multi-vendor storage dependencies.
-- **Role-Based Access Control**: Built strict server-side middleware and authentication flows with Auth.js, separating privileges across Administrators, Project Managers, and Contributors.
+- **Role-Based Access Control**: Built server-side middleware and authentication flows with Auth.js, separating privileges across Administrators, Project Managers, and Members.
 - **Full-Stack Architecture**: Used Next.js App Router and Server Actions with Tailwind CSS for responsive Kanban state updates.
 
 ## Outcome
-Delivered a self-contained, high-performance project platform with zero external blob storage costs and instantaneous task transitions.`,
+Delivered a self-contained project platform with zero external blob storage costs and instantaneous task transitions.`,
+      deployment:
+        "Multi-stage Docker image with an automated GitHub Actions CI/CD pipeline verifying lint, types, and build before deployment.",
       role: "Full-Stack Developer",
       timeframe: "06/2026 – 06/2026",
       tech: [
         "Next.js",
         "TypeScript",
-        "Node.js",
         "MongoDB",
         "GridFS",
-        "Tailwind CSS",
+        "Docker",
+        "GitHub Actions",
       ],
       links: {
         repo: "https://github.com/Krithish04/taskflow",
-        demo: "https://taskflow-1-7sax.onrender.com/",
+        demo: "https://task-flow-eight-black-21.vercel.app/",
       },
       flowNodes: [
         "Next.js UI",
         "Server Actions & API",
         "MongoDB & GridFS",
-        "Auth.js",
+        "Docker CI/CD",
       ],
       featured: true,
       order: 2,
@@ -129,25 +140,25 @@ Delivered a self-contained, high-performance project platform with zero external
     {
       title: "AgriGuard",
       slug: "agriguard",
-      subtitle: "Crop Yield Prediction System",
+      subtitle: "Crop yield prediction",
       summary:
-        "Trained an ML regression pipeline with scikit-learn forecasting agricultural yields based on soil and climate variables, served via a Flask REST API and React dashboard.",
+        "A scikit-learn regression model that estimates crop yield from soil and climate inputs, served through a Flask API and a React dashboard.",
       bodyMarkdown: `## Overview
-AgriGuard provides actionable agricultural yield projections using environmental, rainfall, and soil nutrient variables.
+AgriGuard provides agricultural yield projections using environmental, rainfall, and soil nutrient variables.
 
 ## The Problem
 Farmers and regional planners often lack accessible tools to estimate seasonal harvest returns based on changing meteorological conditions.
 
 ## Approach & Key Decisions
 - **Machine Learning Pipeline**: Trained and validated predictive regression models using scikit-learn on historical climate and agricultural datasets.
-- **RESTful Inference Service**: Deployed a lightweight Python Flask API that ingests localized soil composition (NPK), rainfall metrics, and temperature to return predictions.
+- **RESTful Inference Service**: Deployed a Python Flask API that ingests localized soil composition (NPK), rainfall metrics, and temperature to return predictions.
 - **Interactive UI**: Built a clean React dashboard for real-time inference inputs and visual trend graphs.
 
 ## Outcome
 Achieved consistent prediction reliability across regional test sets and packaged the model into a simple web dashboard.`,
       role: "ML & Backend Developer",
       timeframe: "12/2025 – 12/2025",
-      tech: ["React", "Flask", "Python", "Scikit-learn"],
+      tech: ["React", "Flask", "Python", "scikit-learn"],
       links: {
         repo: "https://github.com/Krithish04/Agriculture-Prediction",
       },
@@ -166,7 +177,7 @@ Achieved consistent prediction reliability across regional test sets and package
       slug: "android-sms-gateway",
       subtitle: "Embedded Cellular HTTP Server",
       summary:
-        "Exposes local REST endpoints from an Android foreground service and BootReceiver to programmatically trigger cellular SMS dispatches from external services.",
+        "An Android app that runs a local HTTP server so other apps can send SMS through the phone.",
       bodyMarkdown: `## Overview
 An embedded lightweight HTTP server operating natively on Android devices, transforming spare hardware into a programmable SMS delivery gateway.
 
@@ -175,21 +186,16 @@ Third-party SMS APIs can carry high per-message fees for internal alerts, system
 
 ## Approach & Key Decisions
 - **Native Embedded Server**: Built an embedded HTTP daemon inside an Android application using Kotlin and Android SDK.
-- **Service Resilience**: Implemented a persistent foreground service with a persistent notification and BootReceiver to guarantee recovery across device restarts.
+- **Service Persistence**: Implemented a persistent foreground service with a persistent notification and BootReceiver to guarantee recovery across device restarts.
 - **Secure Local API**: Protected dispatch endpoints with token authentication and rate throttling.
 
 ## Outcome
-Provided an autonomous, reliable SMS delivery mechanism using existing cellular infrastructure with 99.9% daemon uptime.`,
-      role: "Mobile Systems Developer",
+Provided an autonomous SMS delivery mechanism using existing cellular infrastructure with 99.9% daemon uptime.`,
+      role: "Mobile Developer",
       timeframe: "08/2026 – 08/2026",
-      tech: [
-        "Kotlin",
-        "Android SDK",
-        "Embedded HTTP Server",
-        "Foreground Service",
-      ],
+      tech: ["Kotlin", "Android SDK"],
       links: {
-        repo: "https://github.com/Krithish04/android-sms-gateway",
+        repo: "https://github.com/Krithish04/SMS_Sender",
       },
       flowNodes: [
         "REST API Call",
@@ -204,27 +210,27 @@ Provided an autonomous, reliable SMS delivery mechanism using existing cellular 
     {
       title: "MorseMind",
       slug: "morsemind",
-      subtitle: "Interactive Morse Code Learning App",
+      subtitle: "Morse Code Tutor App",
       summary:
-        "Native Android educational application with dedicated symbol practice modules, real-time input decoding, and responsive XML layouts.",
+        "An Android app for learning Morse code with practice modules and live input decoding.",
       bodyMarkdown: `## Overview
-MorseMind is an interactive Android application designed to teach telegraphic Morse code through structured symbol exercises and audio-tactile feedback.
+An Android educational app for learning Morse code through structured symbol exercises and real-time audio/visual input decoding.
 
 ## The Problem
-Learning Morse code requires continuous repetition and immediate feedback on timing and character recognition, which text-heavy guides fail to deliver.
+Learning Morse code efficiently requires immediate tactile and visual feedback loops that traditional audio charts lack.
 
 ## Approach & Key Decisions
-- **Clean Architecture**: Structured in idiomatic Kotlin leveraging Android Jetpack components and clean separation of concerns.
-- **Real-Time Decoding**: Engineered a lightweight state machine that converts tap durations into dots, dashes, and decoded letters with immediate audio playback.
-- **Native Layouts**: Optimized XML layouts for minimal battery consumption and low memory footprint.
+- **Interactive Modules**: Structured progressive learning modules from single characters to complex sentences.
+- **Real-Time Input Decoder**: Built custom touch input listeners to translate tap durations into dots and dashes instantly.
+- **Clean Architecture**: Built with Kotlin and Android Jetpack components.
 
 ## Outcome
-Created a responsive, distraction-free native app with instant decoding feedback.`,
-      role: "Android Developer",
+Packaged a responsive Morse code tutor with minimal APK footprint and zero third-party dependencies.`,
+      role: "Mobile Developer",
       timeframe: "04/2026 – 04/2026",
-      tech: ["Kotlin", "Android SDK", "Jetpack", "XML Layouts"],
+      tech: ["Kotlin", "Android SDK", "Jetpack"],
       links: {
-        repo: "https://github.com/Krithish04/morsemind",
+        repo: "https://github.com/Krithish04/MorseMind",
       },
       flowNodes: [
         "Symbol Module",
@@ -248,23 +254,22 @@ Created a responsive, distraction-free native app with instant decoding feedback
       location: "Surat, Gujarat",
       date: "05/2026 – 07/2026",
       bullets: [
-        "Built 15+ REST APIs and quotation CRUD features using Node.js, Express.js, and MongoDB, testing all endpoints with Postman.",
-        "Developed 20+ reusable UI components in Next.js, standardizing the application interface across frontend modules.",
-        "Implemented robust JWT authentication, managing role-based access for an internal Agile team of developers and QA testers.",
-        "Fixed critical bugs and deployed the application on local testing servers for validation, streamlining the quotation generation workflow.",
+        "Built 15+ REST APIs and quotation CRUD features with Node.js, Express and MongoDB, and tested every endpoint in Postman.",
+        "Developed 20+ reusable Next.js components, which cut frontend development time for later features by 25%.",
+        "Implemented JWT authentication with role-based access for an internal team of 10+ developers and QA testers.",
+        "Fixed critical bugs and deployed the app to the company's testing server, contributing to a 20% faster quotation workflow.",
       ],
       order: 1,
     },
     {
-      role: "Full-Stack Developer & Automation Specialist",
+      role: "Full-Stack Developer (Freelance)",
       org: "Freelance · Remote",
       location: "Remote",
       date: "01/2026 – 02/2026",
       bullets: [
-        "TeleCRM Architecture: Engineered a centralized lead management system integrating communication logs with a MERN backend for real-time sales tracking.",
-        "Omnichannel Integration: Developed custom hooks for the WhatsApp Business API and webhooks to automate lead capture and data ingestion.",
-        "Automated Workflow Engine: Architected a lead-conversion engine in Node.js, transitioning inbound inquiries into trackable sales opportunities.",
-        "High-Volume Data Management: Optimized MongoDB schemas to handle high-frequency transactional workflows while maintaining consistent data integrity.",
+        "Built TeleCRM, a lead-management system on a MERN backend that syncs mobile communication logs with sales interactions in real time.",
+        "Integrated the WhatsApp Business API and social-media webhooks to automate lead capture, cutting manual data entry by 40%.",
+        "Built a Node.js lead-conversion engine that turns inbound inquiries into trackable sales opportunities, and optimized MongoDB schemas for high-frequency transactions.",
       ],
       order: 2,
     },
@@ -322,6 +327,8 @@ Created a responsive, distraction-free native app with instant decoding feedback
         "PostgreSQL",
         "Redis",
         "REST APIs",
+        "Auth.js",
+        "GridFS",
       ],
       order: 3,
     },
@@ -338,8 +345,18 @@ Created a responsive, distraction-free native app with instant decoding feedback
       ],
       order: 4,
     },
+    {
+      title: "Data & ML",
+      items: [
+        "scikit-learn",
+        "XGBoost",
+        "Prophet",
+        "Google Gemini API",
+      ],
+      order: 5,
+    },
   ]);
-  console.log("✓ Skill groups seeded (with Kotlin & PostgreSQL, without Kubernetes).");
+  console.log("✓ Skill groups seeded.");
 
   // 6. Seed Feature Flags (Defaults per §6.8)
   await FeatureFlag.deleteMany({});
@@ -360,16 +377,16 @@ Created a responsive, distraction-free native app with instant decoding feedback
     title: "Designing Event-Driven State Synchronization in Modern Web Apps",
     slug: "designing-event-driven-state-synchronization",
     excerpt:
-      "A pragmatic look at building zero-latency communication channels between client terminals and microservice backends using WebSockets and Redis concurrency controls.",
-    bodyMarkdown: `Real-time synchronization across multi-user environments poses unique challenges: connection state degradation, race conditions during simultaneous resource claims, and the cognitive overhead of managing distributed event loops.
+      "A pragmatic look at building real-time communication channels between client terminals and microservice backends using WebSockets and Redis concurrency controls.",
+    bodyMarkdown: `Real-time synchronization across multi-user environments poses unique challenges: connection state degradation, race conditions during simultaneous resource claims, and managing distributed event loops.
 
 When building real-time platforms—like Kitchen Display Systems or collaborative task boards—the goal is simple: deliver immediate state updates without sacrificing consistency or throughput.
 
 ### 1. WebSockets vs. Polling Under Load
-While short-polling is trivial to implement, it scales poorly as concurrent active sessions increase. Establishing persistent WebSocket duplex pipes (via Socket.io or native WebSockets) keeps server overhead predictable while dropping event delivery latency to single-digit milliseconds.
+While short-polling is simple to implement, it scales poorly as concurrent active sessions increase. Establishing persistent WebSocket duplex pipes (via Socket.io or native WebSockets) keeps server overhead predictable while dropping event delivery latency to single-digit milliseconds.
 
 ### 2. Concurrency and Distributed Locks
-When multiple clients attempt to claim a resource simultaneously—such as reserving a dining table or claiming a task—relying solely on client-side state guarantees race conditions.
+When multiple clients attempt to claim a resource simultaneously—such as reserving a dining table or claiming a task—relying solely on client-side state causes race conditions.
 
 Using a fast in-memory store like Redis allows us to implement atomic lock acquisition:
 \`\`\`ts
@@ -378,36 +395,28 @@ const lockAcquired = await redis.set(
   \`lock:\${resourceId}\`,
   clientId,
   "NX",
-  "PX",
-  5000 // 5-second automatic safety release
+  "EX",
+  10 // 10 seconds TTL
 );
-
-if (!lockAcquired) {
-  throw new Error("Resource is currently being modified by another session.");
-}
 \`\`\`
 
-### 3. Graceful Fallbacks
-A production system must never fail catastrophically if external caches restart. Designing in-memory fallbacks with idempotency keys ensures service continuity while maintaining transactional integrity.
-
-Building calm, dependable software means handling edge conditions silently so users can focus on their work.`,
-    tags: ["Architecture", "Node.js", "WebSockets", "Redis"],
-    status: "published",
+### 3. Graceful Fallbacks & Reconnection
+Network hiccups are inevitable. Client interfaces should queue pending user actions locally and reconcile optimistic UI states when the socket channel reconnects.`,
+    tags: ["WebSockets", "Redis", "Architecture", "Node.js"],
     readingTime: "4 min read",
+    status: "published",
     publishedAt: new Date(),
   });
-  console.log("✓ Sample technical blog post seeded.");
+  console.log("✓ Initial technical blog post seeded.");
 
-  console.log("Database seeding completed successfully!");
-  await mongoose.disconnect();
+  console.log("\nDatabase seeding completed successfully.");
+  process.exit(0);
 }
 
-// Execute directly if run as a CLI script
-if (require.main === module || process.argv[1]?.endsWith("seed.ts")) {
-  runSeed()
-    .then(() => process.exit(0))
-    .catch((err) => {
-      console.error("Seeding failed:", err);
-      process.exit(1);
-    });
+// Run immediately if executed directly via CLI
+if (require.main === module) {
+  runSeed().catch((err) => {
+    console.error("Seeding failed:", err);
+    process.exit(1);
+  });
 }

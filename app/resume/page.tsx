@@ -7,7 +7,7 @@ import { getProfile, getExperience, getEducation, getSkills, getFeatureFlags } f
 export const metadata = {
   title: "Resume — Krithish Ravindra Suvarna",
   description:
-    "Curriculum Vitae and background summary of Krithish Ravindra Suvarna, Full-Stack Developer & DevOps Specialist.",
+    "Curriculum Vitae and background summary of Krithish Ravindra Suvarna, Full-Stack Developer & DevOps Intern.",
 };
 
 export default async function ResumePage() {
@@ -39,7 +39,7 @@ export default async function ResumePage() {
             <h1 className="font-serif text-2xl xs:text-3xl sm:text-4xl font-semibold tracking-tight text-text mt-1">
               {profile.name}
             </h1>
-            <p className="text-xs sm:text-sm text-text-muted mt-1">{profile.tagline}</p>
+            <p className="text-xs sm:text-sm text-text-muted mt-1">{profile.eyebrow || profile.tagline || "Full-Stack Developer & DevOps Intern"}</p>
           </div>
 
           <a
@@ -56,9 +56,11 @@ export default async function ResumePage() {
           <h2 className="font-serif text-lg sm:text-xl font-semibold text-text mb-2.5 sm:mb-3">
             Summary
           </h2>
-          <p className="text-text-muted text-xs sm:text-sm md:text-base leading-relaxed">
-            {profile.intro}
-          </p>
+          <div className="space-y-3 text-text-muted text-xs sm:text-sm md:text-base leading-relaxed max-w-prose">
+            {(profile.aboutMarkdown || profile.intro).split("\n\n").map((p, idx) => (
+              <p key={idx}>{p}</p>
+            ))}
+          </div>
         </section>
 
         {/* Experience */}
@@ -129,7 +131,7 @@ export default async function ResumePage() {
           </div>
         </section>
       </main>
-      <Footer showPhone={flags.showPhone} />
+      <Footer showBlog={flags.blog} showResume={flags.resumeDownload} />
     </div>
   );
 }

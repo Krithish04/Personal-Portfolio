@@ -51,7 +51,7 @@ export default async function Home() {
       />
 
       <Nav
-        showBlog={flags.blog}
+        showBlog={flags.blog && latestPosts.length > 0}
         showResume={flags.resumeDownload}
         showContact={flags.contactForm}
       />
@@ -60,13 +60,13 @@ export default async function Home() {
         {/* 1. Intro */}
         <Hero
           name={profile.name}
-          role={profile.tagline}
-          summary={profile.intro}
+          role={profile.eyebrow || profile.tagline}
+          summary={profile.heroIntro || profile.intro}
           showPortrait={true}
         />
 
         {/* About Prose Summary */}
-        <About content={profile.intro} />
+        <About content={profile.aboutMarkdown || profile.intro} />
 
         {/* 2 & 3. Selected Work & More Projects */}
         <Projects
@@ -140,8 +140,8 @@ export default async function Home() {
           <h2 className="font-serif text-xl xs:text-2xl sm:text-3xl font-semibold tracking-tight text-text mb-2.5 sm:mb-3">
             Get in touch
           </h2>
-          <p className="text-text-muted text-xs xs:text-sm sm:text-base leading-relaxed mb-5 sm:mb-6 max-w-prose">
-            I am currently open to full-stack, backend, and DevOps engineering opportunities. Feel free to reach out directly by email or through the contact form.
+          <p className="text-text-muted text-xs xs:text-sm sm:text-base leading-relaxed mb-5 sm:mb-6 max-w-prose text-justify sm:text-left">
+            {profile.contactBlurb || "I'm open to internship and entry-level roles in full-stack, backend and DevOps engineering. The quickest way to reach me is email."}
           </p>
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-3 text-xs sm:text-sm font-mono">
@@ -173,6 +173,7 @@ export default async function Home() {
                 className="hover:text-text transition-colors"
               >
                 GitHub
+                <span className="sr-only"> (opens in new tab)</span>
               </a>
               <span className="text-border" aria-hidden="true">·</span>
               <a
@@ -182,13 +183,17 @@ export default async function Home() {
                 className="hover:text-text transition-colors"
               >
                 LinkedIn
+                <span className="sr-only"> (opens in new tab)</span>
               </a>
             </div>
           </div>
         </section>
       </main>
 
-      <Footer showPhone={flags.showPhone} />
+      <Footer
+        showBlog={flags.blog && latestPosts.length > 0}
+        showResume={flags.resumeDownload}
+      />
     </div>
   );
 }

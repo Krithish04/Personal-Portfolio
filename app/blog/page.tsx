@@ -46,7 +46,7 @@ export default async function BlogIndexPage() {
         </header>
 
         {posts.length === 0 ? (
-          <p className="text-sm text-text-muted py-8">No articles published yet.</p>
+          <p className="text-sm text-text-muted py-8">No posts yet.</p>
         ) : (
           <div className="space-y-6">
             {posts.map((post) => (
@@ -94,7 +94,7 @@ export default async function BlogIndexPage() {
           </div>
         )}
       </main>
-      <Footer showPhone={flags.showPhone} />
+      <Footer showBlog={flags.blog && posts.length > 0} showResume={flags.resumeDownload} />
     </div>
   );
 }

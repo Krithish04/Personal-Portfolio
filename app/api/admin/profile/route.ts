@@ -7,7 +7,11 @@ import { z } from "zod";
 const ProfileUpdateSchema = z.object({
   name: z.string().min(1),
   tagline: z.string().min(1),
+  eyebrow: z.string().optional().default("FULL-STACK DEVELOPER & DEVOPS INTERN"),
   intro: z.string().min(1),
+  heroIntro: z.string().optional().default(""),
+  aboutMarkdown: z.string().optional().default(""),
+  contactBlurb: z.string().optional().default(""),
   email: z.string().email(),
   phone: z.string().optional().default(""),
   socials: z.array(z.object({ platform: z.string(), url: z.string() })).optional().default([]),

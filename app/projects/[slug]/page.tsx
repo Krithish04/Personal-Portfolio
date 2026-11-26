@@ -96,6 +96,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                 >
                   <Github size={13} />
                   <span>Repository</span>
+                  <span className="sr-only"> (opens in new tab)</span>
                 </a>
               )}
               {project.demoUrl && (
@@ -107,11 +108,29 @@ export default async function ProjectDetailPage({ params }: Props) {
                 >
                   <span>Live Demo</span>
                   <ArrowUpRight size={13} />
+                  <span className="sr-only"> (opens in new tab)</span>
                 </a>
               )}
             </div>
           </div>
         </header>
+
+        {/* Deployment & Operations (draft) */}
+        {project.deployment && (
+          <div className="mb-6 sm:mb-8 p-4 sm:p-5 rounded-lg bg-surface border border-border">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="font-mono text-xs uppercase tracking-wider text-accent font-semibold">
+                Deployment & operations
+              </span>
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-bg border border-border text-text-muted">
+                draft
+              </span>
+            </div>
+            <p className="text-xs sm:text-sm text-text-muted leading-relaxed font-mono">
+              {project.deployment}
+            </p>
+          </div>
+        )}
 
         {/* DineSync Demo Video (lazy-loaded, controls, no autoplay) */}
         {project.slug === "dinesync" && (
@@ -217,7 +236,7 @@ export default async function ProjectDetailPage({ params }: Props) {
           )}
         </nav>
       </main>
-      <Footer showPhone={flags.showPhone} />
+      <Footer showBlog={flags.blog} showResume={flags.resumeDownload} />
     </div>
   );
 }

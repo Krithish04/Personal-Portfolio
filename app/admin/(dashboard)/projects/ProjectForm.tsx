@@ -15,6 +15,7 @@ interface ProjectFormProps {
     bodyMarkdown: string;
     role: string;
     timeframe: string;
+    deployment?: string;
     tech: string[];
     links?: { repo?: string; demo?: string };
     flowNodes?: string[];
@@ -35,6 +36,7 @@ export default function ProjectForm({ initialData, isNew = false }: ProjectFormP
     bodyMarkdown: initialData?.bodyMarkdown || "",
     role: initialData?.role || "Full-Stack Developer",
     timeframe: initialData?.timeframe || "",
+    deployment: initialData?.deployment || "",
     techInput: initialData?.tech?.join(", ") || "",
     flowNodesInput: initialData?.flowNodes?.join(", ") || "",
     repoUrl: initialData?.links?.repo || "",
@@ -81,6 +83,7 @@ export default function ProjectForm({ initialData, isNew = false }: ProjectFormP
       bodyMarkdown: formData.bodyMarkdown,
       role: formData.role,
       timeframe: formData.timeframe,
+      deployment: formData.deployment,
       tech,
       flowNodes,
       links: {
@@ -237,6 +240,17 @@ export default function ProjectForm({ initialData, isNew = false }: ProjectFormP
               className="w-full px-3 py-2 rounded border border-border bg-surface text-base sm:text-sm text-text focus:border-accent outline-none"
             />
           </div>
+        </div>
+
+        <div>
+          <label className="block text-xs font-mono text-text-muted mb-1">Deployment & Operations (draft notes)</label>
+          <textarea
+            rows={2}
+            value={formData.deployment}
+            onChange={(e) => setFormData({ ...formData, deployment: e.target.value })}
+            placeholder="e.g. Multi-stage Docker build, GitHub Actions CI/CD to AWS EC2, Nginx reverse proxy, automated health checks."
+            className="w-full px-3 py-2 rounded border border-border bg-surface text-base sm:text-sm text-text focus:border-accent outline-none font-mono"
+          />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

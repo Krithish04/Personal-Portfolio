@@ -4,7 +4,11 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 export interface IProfile extends Document {
   name: string;
   tagline: string;
+  eyebrow?: string;
   intro: string;
+  heroIntro?: string;
+  aboutMarkdown?: string;
+  contactBlurb?: string;
   email: string;
   phone: string;
   socials: { platform: string; url: string }[];
@@ -17,7 +21,11 @@ const ProfileSchema = new Schema<IProfile>(
   {
     name: { type: String, required: true },
     tagline: { type: String, required: true },
+    eyebrow: { type: String, default: "FULL-STACK DEVELOPER & DEVOPS INTERN" },
     intro: { type: String, required: true },
+    heroIntro: { type: String, default: "" },
+    aboutMarkdown: { type: String, default: "" },
+    contactBlurb: { type: String, default: "" },
     email: { type: String, required: true },
     phone: { type: String, default: "" },
     socials: [{ platform: String, url: String }],
@@ -35,6 +43,7 @@ export interface IProject extends Document {
   subtitle: string;
   summary: string;
   bodyMarkdown: string;
+  deployment?: string;
   role: string;
   timeframe: string;
   tech: string[];
@@ -55,6 +64,7 @@ const ProjectSchema = new Schema<IProject>(
     subtitle: { type: String, default: "" },
     summary: { type: String, required: true },
     bodyMarkdown: { type: String, default: "" },
+    deployment: { type: String, default: "" },
     role: { type: String, default: "Full-Stack Developer" },
     timeframe: { type: String, default: "" },
     tech: [{ type: String }],

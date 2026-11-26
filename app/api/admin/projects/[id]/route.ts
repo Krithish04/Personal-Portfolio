@@ -12,6 +12,7 @@ const ProjectUpdateSchema = z.object({
   bodyMarkdown: z.string().optional(),
   role: z.string().optional(),
   timeframe: z.string().optional(),
+  deployment: z.string().optional(),
   tech: z.array(z.string()).optional(),
   links: z.object({
     repo: z.string().optional(),

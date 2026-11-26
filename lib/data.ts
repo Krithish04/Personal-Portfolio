@@ -48,9 +48,16 @@ export async function isFeatureEnabled(key: string): Promise<boolean> {
 export async function getProfile() {
   const fallback = {
     name: "Krithish Ravindra Suvarna",
-    tagline: "Full-Stack Developer & Automation Specialist",
+    tagline: "Full-Stack Developer & DevOps Intern",
+    eyebrow: "FULL-STACK DEVELOPER & DEVOPS INTERN",
+    heroIntro:
+      "I build full-stack web applications and the deployment pipelines that ship them. I work mostly with Node.js, React and Python, and I use Docker and GitHub Actions to take projects from a local build to a running service.",
     intro:
-      "Strategic MCA candidate specializing in MERN stack architecture, Python microservices, and reliable cloud deployments. Focused on building clean, high-performance web systems and automating resilient infrastructure.",
+      "I build full-stack web applications and the deployment pipelines that ship them. I work mostly with Node.js, React and Python, and I use Docker and GitHub Actions to take projects from a local build to a running service.",
+    aboutMarkdown:
+      "I'm an MCA student at Christ University (Delhi NCR), based in Surat. In 2026 I worked as a MERN stack intern at Devisoft and as a freelance developer, building a lead-management system with WhatsApp Business API integrations.\n\nMy personal projects are where I practise the full path from code to deployment. DineSync is a multi-tenant restaurant platform with real-time kitchen displays. TaskFlow is a project management app with role-based access, a Docker build and a GitHub Actions pipeline.\n\nI'm looking for internship and entry-level roles in full-stack, backend or DevOps engineering.",
+    contactBlurb:
+      "I'm open to internship and entry-level roles in full-stack, backend and DevOps engineering. The quickest way to reach me is email.",
     email: "suvarnakrithish24@gmail.com",
     phone: "+91 9428141156",
     socials: [
@@ -58,8 +65,8 @@ export async function getProfile() {
       { platform: "LinkedIn", url: "https://www.linkedin.com/in/krithish04" },
     ],
     metaDescription:
-      "Personal portfolio of Krithish Ravindra Suvarna. Full-Stack developer specializing in MERN stack architecture, Python microservices, and reliable cloud deployments.",
-    footerText: "Built with care. Simple, calm, and resilient.",
+      "Portfolio of Krithish Ravindra Suvarna, a full-stack developer and DevOps intern. MERN and Next.js apps, Python services, Docker and CI/CD pipelines.",
+    footerText: "© 2026 Krithish Ravindra Suvarna",
   };
 
   try {
@@ -68,7 +75,14 @@ export async function getProfile() {
 
     const profile = await Profile.findOne().lean();
     if (!profile) return fallback;
-    return profile;
+    return {
+      ...fallback,
+      ...profile,
+      eyebrow: profile.eyebrow || fallback.eyebrow,
+      heroIntro: profile.heroIntro || fallback.intro,
+      aboutMarkdown: profile.aboutMarkdown || fallback.aboutMarkdown,
+      contactBlurb: profile.contactBlurb || fallback.contactBlurb,
+    };
   } catch {
     return fallback;
   }
@@ -93,6 +107,7 @@ export async function getProjects() {
       subtitle: p.subtitle,
       summary: p.summary,
       bodyMarkdown: p.bodyMarkdown,
+      deployment: p.deployment || "",
       role: p.role,
       timeframe: p.timeframe,
       featured: p.featured,
@@ -125,6 +140,7 @@ export async function getProjectBySlug(slug: string) {
       subtitle: project.subtitle,
       summary: project.summary,
       bodyMarkdown: project.bodyMarkdown,
+      deployment: project.deployment || "",
       role: project.role,
       timeframe: project.timeframe,
       featured: project.featured,
@@ -148,23 +164,22 @@ export async function getExperience() {
       location: "Surat, Gujarat",
       date: "05/2026 – 07/2026",
       bullets: [
-        "Built 15+ REST APIs and quotation CRUD features using Node.js, Express.js, and MongoDB, thoroughly tested via Postman.",
-        "Developed 20+ reusable UI components in Next.js, standardizing frontend modules across the application.",
-        "Implemented robust JWT authentication with role-based access control for development and QA teams.",
-        "Diagnosed and resolved critical bugs, streamlining the quotation generation workflow on local testing environments.",
+        "Built 15+ REST APIs and quotation CRUD features with Node.js, Express and MongoDB, and tested every endpoint in Postman.",
+        "Developed 20+ reusable Next.js components, which cut frontend development time for later features by 25%.",
+        "Implemented JWT authentication with role-based access for an internal team of 10+ developers and QA testers.",
+        "Fixed critical bugs and deployed the app to the company's testing server, contributing to a 20% faster quotation workflow.",
       ],
       order: 1,
     },
     {
-      role: "Full-Stack Developer & Automation Specialist",
+      role: "Full-Stack Developer (Freelance)",
       org: "Freelance · Remote",
       location: "Remote",
       date: "01/2026 – 02/2026",
       bullets: [
-        "Architected TeleCRM: A centralized lead management system integrating communication logs with a MERN stack backend for real-time sales tracking.",
-        "Developed custom webhooks and WhatsApp Business API integrations for automated lead ingestion.",
-        "Engineered an automated lead-conversion engine in Node.js, transitioning inbound inquiries into trackable sales opportunities.",
-        "Optimized MongoDB schemas to maintain high transactional performance and data consistency.",
+        "Built TeleCRM, a lead-management system on a MERN backend that syncs mobile communication logs with sales interactions in real time.",
+        "Integrated the WhatsApp Business API and social-media webhooks to automate lead capture, cutting manual data entry by 40%.",
+        "Built a Node.js lead-conversion engine that turns inbound inquiries into trackable sales opportunities, and optimized MongoDB schemas for high-frequency transactions.",
       ],
       order: 2,
     },
@@ -242,6 +257,8 @@ export async function getSkills() {
         "PostgreSQL",
         "Redis",
         "REST APIs",
+        "Auth.js",
+        "GridFS",
       ],
       order: 3,
     },
@@ -257,6 +274,16 @@ export async function getSkills() {
         "Nginx",
       ],
       order: 4,
+    },
+    {
+      title: "Data & ML",
+      items: [
+        "scikit-learn",
+        "XGBoost",
+        "Prophet",
+        "Google Gemini API",
+      ],
+      order: 5,
     },
   ];
 

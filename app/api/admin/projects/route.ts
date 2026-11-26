@@ -12,6 +12,7 @@ const ProjectCreateSchema = z.object({
   bodyMarkdown: z.string().optional().default(""),
   role: z.string().optional().default("Full-Stack Developer"),
   timeframe: z.string().optional().default(""),
+  deployment: z.string().optional().default(""),
   tech: z.array(z.string()).default([]),
   links: z.object({
     repo: z.string().optional().default(""),

@@ -31,7 +31,7 @@ export default async function ProjectsPage() {
             Projects & Case Studies
           </h1>
           <p className="text-text-muted text-base leading-relaxed max-w-prose">
-            A comprehensive collection of full-stack platforms, microservices, and native mobile applications I have architected and deployed.
+            A comprehensive collection of full-stack platforms, microservices, and native mobile applications I have built and deployed.
           </p>
         </header>
 
@@ -41,7 +41,7 @@ export default async function ProjectsPage() {
           showCaseStudies={flags.caseStudies}
         />
       </main>
-      <Footer showPhone={flags.showPhone} />
+      <Footer showBlog={flags.blog} showResume={flags.resumeDownload} />
     </div>
   );
 }

@@ -13,7 +13,6 @@ const serif = Source_Serif_4({
 
 const sans = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
   variable: "--font-sans",
   display: "swap",
 });
@@ -26,9 +25,23 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Krithish Suvarna — Full-Stack Developer & Automation Specialist",
+  title: "Krithish Suvarna — Full-Stack Developer & DevOps Intern",
   description:
-    "Portfolio of Krithish Ravindra Suvarna — Full-Stack Developer & Automation Specialist. MERN stack architecture, Python microservices, and reliable cloud deployments.",
+    "Portfolio of Krithish Ravindra Suvarna, a full-stack developer and DevOps intern. MERN and Next.js apps, Python services, Docker and CI/CD pipelines.",
+  openGraph: {
+    title: "Krithish Suvarna — Full-Stack Developer & DevOps Intern",
+    description:
+      "Portfolio of Krithish Ravindra Suvarna, a full-stack developer and DevOps intern. MERN and Next.js apps, Python services, Docker and CI/CD pipelines.",
+    url: "https://krithish-portfolio.vercel.app",
+    siteName: "Krithish Ravindra Suvarna Portfolio",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Krithish Suvarna — Full-Stack Developer & DevOps Intern",
+    description:
+      "Portfolio of Krithish Ravindra Suvarna, a full-stack developer and DevOps intern. MERN and Next.js apps, Python services, Docker and CI/CD pipelines.",
+  },
 };
 
 export default function RootLayout({

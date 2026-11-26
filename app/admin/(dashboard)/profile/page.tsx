@@ -6,7 +6,11 @@ export default function AdminProfilePage() {
   const [profile, setProfile] = useState({
     name: "",
     tagline: "",
+    eyebrow: "",
     intro: "",
+    heroIntro: "",
+    aboutMarkdown: "",
+    contactBlurb: "",
     email: "",
     phone: "",
     metaDescription: "",
@@ -24,7 +28,11 @@ export default function AdminProfilePage() {
           setProfile({
             name: data.name || "",
             tagline: data.tagline || "",
+            eyebrow: data.eyebrow || "FULL-STACK DEVELOPER & DEVOPS INTERN",
             intro: data.intro || "",
+            heroIntro: data.heroIntro || data.intro || "",
+            aboutMarkdown: data.aboutMarkdown || "",
+            contactBlurb: data.contactBlurb || "",
             email: data.email || "",
             phone: data.phone || "",
             metaDescription: data.metaDescription || "",
@@ -99,6 +107,18 @@ export default function AdminProfilePage() {
         </div>
 
         <div>
+          <label className="block text-xs font-mono text-text-muted mb-1">Eyebrow Label (Hero Top Tag)</label>
+          <input
+            type="text"
+            required
+            value={profile.eyebrow}
+            onChange={(e) => setProfile({ ...profile, eyebrow: e.target.value })}
+            className="w-full px-3 py-2 rounded border border-border bg-surface text-base sm:text-sm text-text focus:border-accent outline-none"
+            placeholder="FULL-STACK DEVELOPER & DEVOPS INTERN"
+          />
+        </div>
+
+        <div>
           <label className="block text-xs font-mono text-text-muted mb-1">Tagline / Role</label>
           <input
             type="text"
@@ -110,13 +130,38 @@ export default function AdminProfilePage() {
         </div>
 
         <div>
-          <label className="block text-xs font-mono text-text-muted mb-1">Intro / Summary</label>
+          <label className="block text-xs font-mono text-text-muted mb-1">Hero Paragraph</label>
           <textarea
-            rows={4}
+            rows={3}
             required
-            value={profile.intro}
-            onChange={(e) => setProfile({ ...profile, intro: e.target.value })}
+            value={profile.heroIntro || profile.intro}
+            onChange={(e) =>
+              setProfile({ ...profile, heroIntro: e.target.value, intro: e.target.value })
+            }
             className="w-full px-3 py-2 rounded border border-border bg-surface text-base sm:text-sm text-text focus:border-accent outline-none resize-y"
+          />
+        </div>
+
+        <div>
+          <label className="block text-xs font-mono text-text-muted mb-1">About Section Narrative (Markdown)</label>
+          <textarea
+            rows={5}
+            required
+            value={profile.aboutMarkdown}
+            onChange={(e) => setProfile({ ...profile, aboutMarkdown: e.target.value })}
+            className="w-full px-3 py-2 rounded border border-border bg-surface text-base sm:text-sm text-text focus:border-accent outline-none resize-y"
+            placeholder="Write your About section narrative..."
+          />
+        </div>
+
+        <div>
+          <label className="block text-xs font-mono text-text-muted mb-1">Get In Touch Blurb</label>
+          <textarea
+            rows={2}
+            value={profile.contactBlurb}
+            onChange={(e) => setProfile({ ...profile, contactBlurb: e.target.value })}
+            className="w-full px-3 py-2 rounded border border-border bg-surface text-base sm:text-sm text-text focus:border-accent outline-none resize-y"
+            placeholder="I'm open to internship and entry-level roles..."
           />
         </div>
 
